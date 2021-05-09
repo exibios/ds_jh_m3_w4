@@ -59,7 +59,7 @@ and one dataset descibring the name of the measures in A and B
 
 
 
-
+* The order might not be the same as described here but, the logic it is.
 
 
 
