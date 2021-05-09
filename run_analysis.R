@@ -67,6 +67,6 @@ mean_and_std_for_measurement_sbj_groupped <- mean_and_std_for_measurement_sbj %>
         summarize_at(vars(-activity),funs(mean))
 
 #easy visualization
-#write.table(mean_and_std_for_measurement_sbj_2[,c('activity_name','subject','tBodyAcc-mean()-X')],"f.csv")
+write.table(mean_and_std_for_measurement_sbj_groupped,"fcorona.txt",row.names = FALSE)
 
 options(warn = oldw)
