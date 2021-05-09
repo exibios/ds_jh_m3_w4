@@ -37,7 +37,7 @@ mean_and_std <- unlist(mean_and_std["V2"])
 mean_and_std_for_measurement <- test_train[,c(mean_and_std,"activity")]
 # 3 Uses descriptive activity names to name the activities in the data set
 # #activity is already present
-unique(mean_and_std_for_measurement$activity)
+# unique(mean_and_std_for_measurement$activity)
 # 4 Appropriately labels the data set with descriptive variable names. 
 # adding the descriptive activity name
 library(dplyr)

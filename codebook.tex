@@ -1,0 +1,4126 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Getting and Cleaning Data Course Project},
+  pdfauthor={Franco Corona},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Getting and Cleaning Data Course Project}
+\author{Franco Corona}
+\date{2021-05-09}
+
+\begin{document}
+\maketitle
+
+\hypertarget{reference-httpsrubenarslan.github.iocodebookarticlescodebook.html}{%
+\subsection{\texorpdfstring{Reference:
+\url{https://rubenarslan.github.io/codebook/articles/codebook.html}}{Reference: https://rubenarslan.github.io/codebook/articles/codebook.html}}\label{reference-httpsrubenarslan.github.iocodebookarticlescodebook.html}}
+
+Running run\_analysis.R file:
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+The data was processed by run\_analysis.R
+
+\begin{verbatim}
+## No missing values.
+\end{verbatim}
+
+\hypertarget{metadata}{%
+\subsubsection{Metadata}\label{metadata}}
+
+\hypertarget{description}{%
+\paragraph{Description}\label{description}}
+
+\textbf{Dataset name}: Human Activity Recognition Using Smartphones
+Dataset
+
+a small analysis by Franco Corona
+
+Metadata for search engines
+
+\begin{itemize}
+\item
+  \textbf{Temporal Coverage}: 2021
+\item
+  \textbf{Spatial Coverage}: Mexico city, México
+\item
+  \textbf{Citation}: Franco Corona, Getting and Cleaning Data Course
+  Project
+\item
+  \textbf{URL}: \url{https://github.com/exibios/ds_jh_m3_w4}
+\item
+  \textbf{Identifier}: MX-001
+\item
+  \textbf{Date published}: 2021-05-09
+\item
+  \textbf{Creator}:
+\end{itemize}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.08}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.92}}@{}}
+\toprule
+name & value \\
+\midrule
+\endhead
+@type & Person \\
+givenName & Franco \\
+familyName & Corona \\
+email &
+\href{mailto:exibios@gmail.com}{\nolinkurl{exibios@gmail.com}} \\
+affiliation & Coursera , Data Science Specialization by Johns Hopkins
+University- Mexico city \\
+\bottomrule
+\end{longtable}
+
+\begin{table}
+
+\centering
+\begin{tabular}[t]{l}
+\hline
+x\\
+\hline
+activity\_name\\
+\hline
+subject\\
+\hline
+tBodyAcc-mean()-X\\
+\hline
+tBodyAcc-mean()-Y\\
+\hline
+tBodyAcc-mean()-Z\\
+\hline
+tBodyAcc-std()-X\\
+\hline
+tBodyAcc-std()-Y\\
+\hline
+tBodyAcc-std()-Z\\
+\hline
+tGravityAcc-mean()-X\\
+\hline
+tGravityAcc-mean()-Y\\
+\hline
+tGravityAcc-mean()-Z\\
+\hline
+tGravityAcc-std()-X\\
+\hline
+tGravityAcc-std()-Y\\
+\hline
+tGravityAcc-std()-Z\\
+\hline
+tBodyAccJerk-mean()-X\\
+\hline
+tBodyAccJerk-mean()-Y\\
+\hline
+tBodyAccJerk-mean()-Z\\
+\hline
+tBodyAccJerk-std()-X\\
+\hline
+tBodyAccJerk-std()-Y\\
+\hline
+tBodyAccJerk-std()-Z\\
+\hline
+tBodyGyro-mean()-X\\
+\hline
+tBodyGyro-mean()-Y\\
+\hline
+tBodyGyro-mean()-Z\\
+\hline
+tBodyGyro-std()-X\\
+\hline
+tBodyGyro-std()-Y\\
+\hline
+tBodyGyro-std()-Z\\
+\hline
+tBodyGyroJerk-mean()-X\\
+\hline
+tBodyGyroJerk-mean()-Y\\
+\hline
+tBodyGyroJerk-mean()-Z\\
+\hline
+tBodyGyroJerk-std()-X\\
+\hline
+tBodyGyroJerk-std()-Y\\
+\hline
+tBodyGyroJerk-std()-Z\\
+\hline
+tBodyAccMag-mean()\\
+\hline
+tBodyAccMag-std()\\
+\hline
+tGravityAccMag-mean()\\
+\hline
+tGravityAccMag-std()\\
+\hline
+tBodyAccJerkMag-mean()\\
+\hline
+tBodyAccJerkMag-std()\\
+\hline
+tBodyGyroMag-mean()\\
+\hline
+tBodyGyroMag-std()\\
+\hline
+tBodyGyroJerkMag-mean()\\
+\hline
+tBodyGyroJerkMag-std()\\
+\hline
+fBodyAcc-mean()-X\\
+\hline
+fBodyAcc-mean()-Y\\
+\hline
+fBodyAcc-mean()-Z\\
+\hline
+fBodyAcc-std()-X\\
+\hline
+fBodyAcc-std()-Y\\
+\hline
+fBodyAcc-std()-Z\\
+\hline
+fBodyAcc-meanFreq()-X\\
+\hline
+fBodyAcc-meanFreq()-Y\\
+\hline
+fBodyAcc-meanFreq()-Z\\
+\hline
+fBodyAccJerk-mean()-X\\
+\hline
+fBodyAccJerk-mean()-Y\\
+\hline
+fBodyAccJerk-mean()-Z\\
+\hline
+fBodyAccJerk-std()-X\\
+\hline
+fBodyAccJerk-std()-Y\\
+\hline
+fBodyAccJerk-std()-Z\\
+\hline
+fBodyAccJerk-meanFreq()-X\\
+\hline
+fBodyAccJerk-meanFreq()-Y\\
+\hline
+fBodyAccJerk-meanFreq()-Z\\
+\hline
+fBodyGyro-mean()-X\\
+\hline
+fBodyGyro-mean()-Y\\
+\hline
+fBodyGyro-mean()-Z\\
+\hline
+fBodyGyro-std()-X\\
+\hline
+fBodyGyro-std()-Y\\
+\hline
+fBodyGyro-std()-Z\\
+\hline
+fBodyGyro-meanFreq()-X\\
+\hline
+fBodyGyro-meanFreq()-Y\\
+\hline
+fBodyGyro-meanFreq()-Z\\
+\hline
+fBodyAccMag-mean()\\
+\hline
+fBodyAccMag-std()\\
+\hline
+fBodyAccMag-meanFreq()\\
+\hline
+fBodyBodyAccJerkMag-mean()\\
+\hline
+fBodyBodyAccJerkMag-std()\\
+\hline
+fBodyBodyAccJerkMag-meanFreq()\\
+\hline
+fBodyBodyGyroMag-mean()\\
+\hline
+fBodyBodyGyroMag-std()\\
+\hline
+fBodyBodyGyroMag-meanFreq()\\
+\hline
+fBodyBodyGyroJerkMag-mean()\\
+\hline
+fBodyBodyGyroJerkMag-std()\\
+\hline
+fBodyBodyGyroJerkMag-meanFreq()\\
+\hline
+\end{tabular}
+\end{table}
+
+\#Variables
+
+\hypertarget{activity_name}{%
+\subsubsection{activity\_name}\label{activity_name}}
+
+\hypertarget{activity_name_distribution}{%
+\paragraph{Distribution}\label{activity_name_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_activity_name_distribution-1.pdf}
+\caption{Distribution of values for activity\_name}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{activity_name_summary}{%
+\paragraph{Summary statistics}\label{activity_name_summary}}
+
+\begin{longtable}[]{@{}llrrrrllrl@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & n\_unique & empty &
+min & max & whitespace & label \\
+\midrule
+\endhead
+activity\_name & character & 0 & 1 & 6 & 0 & 6 & 18 & 0 & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{subject}{%
+\subsubsection{subject}\label{subject}}
+
+\hypertarget{subject_distribution}{%
+\paragraph{Distribution}\label{subject_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_subject_distribution-19-1.pdf}
+\caption{Distribution of values for subject}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{subject_summary}{%
+\paragraph{Summary statistics}\label{subject_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+subject & numeric & 0 & 1 & 1 & 16 & 30 & 15.5 & 8.679585 & ▇▇▇▇▇ &
+NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAcc_mean___X}{%
+\subsubsection{tBodyAcc-mean()-X}\label{tBodyAcc_mean___X}}
+
+\hypertarget{tBodyAcc_mean___X_distribution}{%
+\paragraph{Distribution}\label{tBodyAcc_mean___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAcc_mean___X_distribution-26-1.pdf}
+\caption{Distribution of values for tBodyAcc-mean()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAcc_mean___X_summary}{%
+\paragraph{Summary statistics}\label{tBodyAcc_mean___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAcc-mean()-X & numeric & 0 & 1 & 0.22 & 0.28 & 0.3 & 0.2743027 &
+0.0121646 & ▁▁▂▇▂ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAcc_mean___Y}{%
+\subsubsection{tBodyAcc-mean()-Y}\label{tBodyAcc_mean___Y}}
+
+\hypertarget{tBodyAcc_mean___Y_distribution}{%
+\paragraph{Distribution}\label{tBodyAcc_mean___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAcc_mean___Y_distribution-33-1.pdf}
+\caption{Distribution of values for tBodyAcc-mean()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAcc_mean___Y_summary}{%
+\paragraph{Summary statistics}\label{tBodyAcc_mean___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAcc-mean()-Y & numeric & 0 & 1 & -0.041 & -0.017 & -0.0013 &
+-0.0178755 & 0.0057712 & ▁▂▇▇▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAcc_mean___Z}{%
+\subsubsection{tBodyAcc-mean()-Z}\label{tBodyAcc_mean___Z}}
+
+\hypertarget{tBodyAcc_mean___Z_distribution}{%
+\paragraph{Distribution}\label{tBodyAcc_mean___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAcc_mean___Z_distribution-40-1.pdf}
+\caption{Distribution of values for tBodyAcc-mean()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAcc_mean___Z_summary}{%
+\paragraph{Summary statistics}\label{tBodyAcc_mean___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAcc-mean()-Z & numeric & 0 & 1 & -0.15 & -0.11 & -0.075 &
+-0.1091638 & 0.009582 & ▁▁▇▅▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAcc_std___X}{%
+\subsubsection{tBodyAcc-std()-X}\label{tBodyAcc_std___X}}
+
+\hypertarget{tBodyAcc_std___X_distribution}{%
+\paragraph{Distribution}\label{tBodyAcc_std___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAcc_std___X_distribution-47-1.pdf}
+\caption{Distribution of values for tBodyAcc-std()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAcc_std___X_summary}{%
+\paragraph{Summary statistics}\label{tBodyAcc_std___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAcc-std()-X & numeric & 0 & 1 & -1 & -0.75 & 0.63 & -0.5576901 &
+0.4516911 & ▇▂▅▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAcc_std___Y}{%
+\subsubsection{tBodyAcc-std()-Y}\label{tBodyAcc_std___Y}}
+
+\hypertarget{tBodyAcc_std___Y_distribution}{%
+\paragraph{Distribution}\label{tBodyAcc_std___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAcc_std___Y_distribution-54-1.pdf}
+\caption{Distribution of values for tBodyAcc-std()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAcc_std___Y_summary}{%
+\paragraph{Summary statistics}\label{tBodyAcc_std___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAcc-std()-Y & numeric & 0 & 1 & -0.99 & -0.51 & 0.62 & -0.4604626 &
+0.496565 & ▇▁▅▃▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAcc_std___Z}{%
+\subsubsection{tBodyAcc-std()-Z}\label{tBodyAcc_std___Z}}
+
+\hypertarget{tBodyAcc_std___Z_distribution}{%
+\paragraph{Distribution}\label{tBodyAcc_std___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAcc_std___Z_distribution-61-1.pdf}
+\caption{Distribution of values for tBodyAcc-std()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAcc_std___Z_summary}{%
+\paragraph{Summary statistics}\label{tBodyAcc_std___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAcc-std()-Z & numeric & 0 & 1 & -0.99 & -0.65 & 0.61 & -0.5755602 &
+0.3955439 & ▇▂▅▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tGravityAcc_mean___X}{%
+\subsubsection{tGravityAcc-mean()-X}\label{tGravityAcc_mean___X}}
+
+\hypertarget{tGravityAcc_mean___X_distribution}{%
+\paragraph{Distribution}\label{tGravityAcc_mean___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tGravityAcc_mean___X_distribution-68-1.pdf}
+\caption{Distribution of values for tGravityAcc-mean()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tGravityAcc_mean___X_summary}{%
+\paragraph{Summary statistics}\label{tGravityAcc_mean___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tGravityAcc-mean()-X & numeric & 0 & 1 & -0.68 & 0.92 & 0.97 & 0.6974775
+& 0.4872534 & ▁▁▁▁▇ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tGravityAcc_mean___Y}{%
+\subsubsection{tGravityAcc-mean()-Y}\label{tGravityAcc_mean___Y}}
+
+\hypertarget{tGravityAcc_mean___Y_distribution}{%
+\paragraph{Distribution}\label{tGravityAcc_mean___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tGravityAcc_mean___Y_distribution-75-1.pdf}
+\caption{Distribution of values for tGravityAcc-mean()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tGravityAcc_mean___Y_summary}{%
+\paragraph{Summary statistics}\label{tGravityAcc_mean___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tGravityAcc-mean()-Y & numeric & 0 & 1 & -0.48 & -0.13 & 0.96 &
+-0.0162128 & 0.3452376 & ▇▇▂▁▂ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tGravityAcc_mean___Z}{%
+\subsubsection{tGravityAcc-mean()-Z}\label{tGravityAcc_mean___Z}}
+
+\hypertarget{tGravityAcc_mean___Z_distribution}{%
+\paragraph{Distribution}\label{tGravityAcc_mean___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tGravityAcc_mean___Z_distribution-82-1.pdf}
+\caption{Distribution of values for tGravityAcc-mean()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tGravityAcc_mean___Z_summary}{%
+\paragraph{Summary statistics}\label{tGravityAcc_mean___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tGravityAcc-mean()-Z & numeric & 0 & 1 & -0.5 & 0.024 & 0.96 & 0.0741279
+& 0.2887919 & ▂▇▃▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tGravityAcc_std___X}{%
+\subsubsection{tGravityAcc-std()-X}\label{tGravityAcc_std___X}}
+
+\hypertarget{tGravityAcc_std___X_distribution}{%
+\paragraph{Distribution}\label{tGravityAcc_std___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tGravityAcc_std___X_distribution-89-1.pdf}
+\caption{Distribution of values for tGravityAcc-std()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tGravityAcc_std___X_summary}{%
+\paragraph{Summary statistics}\label{tGravityAcc_std___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tGravityAcc-std()-X & numeric & 0 & 1 & -1 & -0.97 & -0.83 & -0.9637525
+& 0.0250344 & ▇▆▁▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tGravityAcc_std___Y}{%
+\subsubsection{tGravityAcc-std()-Y}\label{tGravityAcc_std___Y}}
+
+\hypertarget{tGravityAcc_std___Y_distribution}{%
+\paragraph{Distribution}\label{tGravityAcc_std___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tGravityAcc_std___Y_distribution-96-1.pdf}
+\caption{Distribution of values for tGravityAcc-std()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tGravityAcc_std___Y_summary}{%
+\paragraph{Summary statistics}\label{tGravityAcc_std___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tGravityAcc-std()-Y & numeric & 0 & 1 & -0.99 & -0.96 & -0.64 &
+-0.9524296 & 0.0326557 & ▇▁▁▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tGravityAcc_std___Z}{%
+\subsubsection{tGravityAcc-std()-Z}\label{tGravityAcc_std___Z}}
+
+\hypertarget{tGravityAcc_std___Z_distribution}{%
+\paragraph{Distribution}\label{tGravityAcc_std___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tGravityAcc_std___Z_distribution-103-1.pdf}
+\caption{Distribution of values for tGravityAcc-std()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tGravityAcc_std___Z_summary}{%
+\paragraph{Summary statistics}\label{tGravityAcc_std___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tGravityAcc-std()-Z & numeric & 0 & 1 & -0.99 & -0.95 & -0.61 &
+-0.936401 & 0.0402912 & ▇▂▁▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAccJerk_mean___X}{%
+\subsubsection{tBodyAccJerk-mean()-X}\label{tBodyAccJerk_mean___X}}
+
+\hypertarget{tBodyAccJerk_mean___X_distribution}{%
+\paragraph{Distribution}\label{tBodyAccJerk_mean___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAccJerk_mean___X_distribution-110-1.pdf}
+\caption{Distribution of values for tBodyAccJerk-mean()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAccJerk_mean___X_summary}{%
+\paragraph{Summary statistics}\label{tBodyAccJerk_mean___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAccJerk-mean()-X & numeric & 0 & 1 & 0.043 & 0.076 & 0.13 &
+0.0794736 & 0.012588 & ▁▇▃▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAccJerk_mean___Y}{%
+\subsubsection{tBodyAccJerk-mean()-Y}\label{tBodyAccJerk_mean___Y}}
+
+\hypertarget{tBodyAccJerk_mean___Y_distribution}{%
+\paragraph{Distribution}\label{tBodyAccJerk_mean___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAccJerk_mean___Y_distribution-117-1.pdf}
+\caption{Distribution of values for tBodyAccJerk-mean()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAccJerk_mean___Y_summary}{%
+\paragraph{Summary statistics}\label{tBodyAccJerk_mean___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.039 & 0.0095 & 0.057 &
+0.0075652 & 0.0135764 & ▁▃▇▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAccJerk_mean___Z}{%
+\subsubsection{tBodyAccJerk-mean()-Z}\label{tBodyAccJerk_mean___Z}}
+
+\hypertarget{tBodyAccJerk_mean___Z_distribution}{%
+\paragraph{Distribution}\label{tBodyAccJerk_mean___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAccJerk_mean___Z_distribution-124-1.pdf}
+\caption{Distribution of values for tBodyAccJerk-mean()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAccJerk_mean___Z_summary}{%
+\paragraph{Summary statistics}\label{tBodyAccJerk_mean___Z_summary}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.20}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.13}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.07}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.10}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.067 & -0.0039 & 0.038 &
+-0.0049534 & 0.0134621 & ▁▁▇▇▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAccJerk_std___X}{%
+\subsubsection{tBodyAccJerk-std()-X}\label{tBodyAccJerk_std___X}}
+
+\hypertarget{tBodyAccJerk_std___X_distribution}{%
+\paragraph{Distribution}\label{tBodyAccJerk_std___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAccJerk_std___X_distribution-131-1.pdf}
+\caption{Distribution of values for tBodyAccJerk-std()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAccJerk_std___X_summary}{%
+\paragraph{Summary statistics}\label{tBodyAccJerk_std___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAccJerk-std()-X & numeric & 0 & 1 & -0.99 & -0.81 & 0.54 &
+-0.5949467 & 0.4175865 & ▇▂▅▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAccJerk_std___Y}{%
+\subsubsection{tBodyAccJerk-std()-Y}\label{tBodyAccJerk_std___Y}}
+
+\hypertarget{tBodyAccJerk_std___Y_distribution}{%
+\paragraph{Distribution}\label{tBodyAccJerk_std___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAccJerk_std___Y_distribution-138-1.pdf}
+\caption{Distribution of values for tBodyAccJerk-std()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAccJerk_std___Y_summary}{%
+\paragraph{Summary statistics}\label{tBodyAccJerk_std___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.99 & -0.78 & 0.36 &
+-0.5654147 & 0.4330871 & ▇▁▃▃▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAccJerk_std___Z}{%
+\subsubsection{tBodyAccJerk-std()-Z}\label{tBodyAccJerk_std___Z}}
+
+\hypertarget{tBodyAccJerk_std___Z_distribution}{%
+\paragraph{Distribution}\label{tBodyAccJerk_std___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAccJerk_std___Z_distribution-145-1.pdf}
+\caption{Distribution of values for tBodyAccJerk-std()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAccJerk_std___Z_summary}{%
+\paragraph{Summary statistics}\label{tBodyAccJerk_std___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.99 & -0.88 & 0.031 &
+-0.7359577 & 0.2768479 & ▇▂▃▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyro_mean___X}{%
+\subsubsection{tBodyGyro-mean()-X}\label{tBodyGyro_mean___X}}
+
+\hypertarget{tBodyGyro_mean___X_distribution}{%
+\paragraph{Distribution}\label{tBodyGyro_mean___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyro_mean___X_distribution-152-1.pdf}
+\caption{Distribution of values for tBodyGyro-mean()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyro_mean___X_summary}{%
+\paragraph{Summary statistics}\label{tBodyGyro_mean___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyro-mean()-X & numeric & 0 & 1 & -0.21 & -0.029 & 0.19 &
+-0.0324372 & 0.0540518 & ▁▂▇▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyro_mean___Y}{%
+\subsubsection{tBodyGyro-mean()-Y}\label{tBodyGyro_mean___Y}}
+
+\hypertarget{tBodyGyro_mean___Y_distribution}{%
+\paragraph{Distribution}\label{tBodyGyro_mean___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyro_mean___Y_distribution-159-1.pdf}
+\caption{Distribution of values for tBodyGyro-mean()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyro_mean___Y_summary}{%
+\paragraph{Summary statistics}\label{tBodyGyro_mean___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyro-mean()-Y & numeric & 0 & 1 & -0.2 & -0.073 & 0.027 &
+-0.0742596 & 0.0355415 & ▁▁▇▃▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyro_mean___Z}{%
+\subsubsection{tBodyGyro-mean()-Z}\label{tBodyGyro_mean___Z}}
+
+\hypertarget{tBodyGyro_mean___Z_distribution}{%
+\paragraph{Distribution}\label{tBodyGyro_mean___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyro_mean___Z_distribution-166-1.pdf}
+\caption{Distribution of values for tBodyGyro-mean()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyro_mean___Z_summary}{%
+\paragraph{Summary statistics}\label{tBodyGyro_mean___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyro-mean()-Z & numeric & 0 & 1 & -0.072 & 0.085 & 0.18 & 0.0874446
+& 0.0362125 & ▁▁▃▇▂ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyro_std___X}{%
+\subsubsection{tBodyGyro-std()-X}\label{tBodyGyro_std___X}}
+
+\hypertarget{tBodyGyro_std___X_distribution}{%
+\paragraph{Distribution}\label{tBodyGyro_std___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyro_std___X_distribution-173-1.pdf}
+\caption{Distribution of values for tBodyGyro-std()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyro_std___X_summary}{%
+\paragraph{Summary statistics}\label{tBodyGyro_std___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyro-std()-X & numeric & 0 & 1 & -0.99 & -0.79 & 0.27 & -0.6916399
+& 0.2910189 & ▇▃▅▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyro_std___Y}{%
+\subsubsection{tBodyGyro-std()-Y}\label{tBodyGyro_std___Y}}
+
+\hypertarget{tBodyGyro_std___Y_distribution}{%
+\paragraph{Distribution}\label{tBodyGyro_std___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyro_std___Y_distribution-180-1.pdf}
+\caption{Distribution of values for tBodyGyro-std()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyro_std___Y_summary}{%
+\paragraph{Summary statistics}\label{tBodyGyro_std___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyro-std()-Y & numeric & 0 & 1 & -0.99 & -0.8 & 0.48 & -0.653302 &
+0.3520252 & ▇▅▂▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyro_std___Z}{%
+\subsubsection{tBodyGyro-std()-Z}\label{tBodyGyro_std___Z}}
+
+\hypertarget{tBodyGyro_std___Z_distribution}{%
+\paragraph{Distribution}\label{tBodyGyro_std___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyro_std___Z_distribution-187-1.pdf}
+\caption{Distribution of values for tBodyGyro-std()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyro_std___Z_summary}{%
+\paragraph{Summary statistics}\label{tBodyGyro_std___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyro-std()-Z & numeric & 0 & 1 & -0.99 & -0.8 & 0.56 & -0.6164353 &
+0.3730264 & ▇▂▅▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyroJerk_mean___X}{%
+\subsubsection{tBodyGyroJerk-mean()-X}\label{tBodyGyroJerk_mean___X}}
+
+\hypertarget{tBodyGyroJerk_mean___X_distribution}{%
+\paragraph{Distribution}\label{tBodyGyroJerk_mean___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyroJerk_mean___X_distribution-194-1.pdf}
+\caption{Distribution of values for tBodyGyroJerk-mean()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyroJerk_mean___X_summary}{%
+\paragraph{Summary statistics}\label{tBodyGyroJerk_mean___X_summary}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.21}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.13}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.10}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyroJerk-mean()-X & numeric & 0 & 1 & -0.16 & -0.099 & -0.022 &
+-0.0960568 & 0.0233458 & ▁▂▇▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyroJerk_mean___Y}{%
+\subsubsection{tBodyGyroJerk-mean()-Y}\label{tBodyGyroJerk_mean___Y}}
+
+\hypertarget{tBodyGyroJerk_mean___Y_distribution}{%
+\paragraph{Distribution}\label{tBodyGyroJerk_mean___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyroJerk_mean___Y_distribution-201-1.pdf}
+\caption{Distribution of values for tBodyGyroJerk-mean()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyroJerk_mean___Y_summary}{%
+\paragraph{Summary statistics}\label{tBodyGyroJerk_mean___Y_summary}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.21}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.13}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.10}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.08}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyroJerk-mean()-Y & numeric & 0 & 1 & -0.077 & -0.041 & -0.013 &
+-0.0426928 & 0.009532 & ▁▂▇▃▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyroJerk_mean___Z}{%
+\subsubsection{tBodyGyroJerk-mean()-Z}\label{tBodyGyroJerk_mean___Z}}
+
+\hypertarget{tBodyGyroJerk_mean___Z_distribution}{%
+\paragraph{Distribution}\label{tBodyGyroJerk_mean___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyroJerk_mean___Z_distribution-208-1.pdf}
+\caption{Distribution of values for tBodyGyroJerk-mean()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyroJerk_mean___Z_summary}{%
+\paragraph{Summary statistics}\label{tBodyGyroJerk_mean___Z_summary}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.21}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.13}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.07}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.10}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.08}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyroJerk-mean()-Z & numeric & 0 & 1 & -0.092 & -0.053 & -0.0069 &
+-0.0548019 & 0.012347 & ▁▅▇▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyroJerk_std___X}{%
+\subsubsection{tBodyGyroJerk-std()-X}\label{tBodyGyroJerk_std___X}}
+
+\hypertarget{tBodyGyroJerk_std___X_distribution}{%
+\paragraph{Distribution}\label{tBodyGyroJerk_std___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyroJerk_std___X_distribution-215-1.pdf}
+\caption{Distribution of values for tBodyGyroJerk-std()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyroJerk_std___X_summary}{%
+\paragraph{Summary statistics}\label{tBodyGyroJerk_std___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyroJerk-std()-X & numeric & 0 & 1 & -1 & -0.84 & 0.18 & -0.7036327
+& 0.3008361 & ▇▂▃▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyroJerk_std___Y}{%
+\subsubsection{tBodyGyroJerk-std()-Y}\label{tBodyGyroJerk_std___Y}}
+
+\hypertarget{tBodyGyroJerk_std___Y_distribution}{%
+\paragraph{Distribution}\label{tBodyGyroJerk_std___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyroJerk_std___Y_distribution-222-1.pdf}
+\caption{Distribution of values for tBodyGyroJerk-std()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyroJerk_std___Y_summary}{%
+\paragraph{Summary statistics}\label{tBodyGyroJerk_std___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyroJerk-std()-Y & numeric & 0 & 1 & -1 & -0.89 & 0.3 & -0.7635518
+& 0.2672885 & ▇▃▂▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyroJerk_std___Z}{%
+\subsubsection{tBodyGyroJerk-std()-Z}\label{tBodyGyroJerk_std___Z}}
+
+\hypertarget{tBodyGyroJerk_std___Z_distribution}{%
+\paragraph{Distribution}\label{tBodyGyroJerk_std___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyroJerk_std___Z_distribution-229-1.pdf}
+\caption{Distribution of values for tBodyGyroJerk-std()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyroJerk_std___Z_summary}{%
+\paragraph{Summary statistics}\label{tBodyGyroJerk_std___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyroJerk-std()-Z & numeric & 0 & 1 & -1 & -0.86 & 0.19 & -0.7095592
+& 0.3045394 & ▇▃▃▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAccMag_mean__}{%
+\subsubsection{tBodyAccMag-mean()}\label{tBodyAccMag_mean__}}
+
+\hypertarget{tBodyAccMag_mean___distribution}{%
+\paragraph{Distribution}\label{tBodyAccMag_mean___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAccMag_mean___distribution-236-1.pdf}
+\caption{Distribution of values for tBodyAccMag-mean()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAccMag_mean___summary}{%
+\paragraph{Summary statistics}\label{tBodyAccMag_mean___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAccMag-mean() & numeric & 0 & 1 & -0.99 & -0.48 & 0.64 & -0.4972897
+& 0.4728834 & ▇▁▅▃▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAccMag_std__}{%
+\subsubsection{tBodyAccMag-std()}\label{tBodyAccMag_std__}}
+
+\hypertarget{tBodyAccMag_std___distribution}{%
+\paragraph{Distribution}\label{tBodyAccMag_std___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAccMag_std___distribution-243-1.pdf}
+\caption{Distribution of values for tBodyAccMag-std()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAccMag_std___summary}{%
+\paragraph{Summary statistics}\label{tBodyAccMag_std___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAccMag-std() & numeric & 0 & 1 & -0.99 & -0.61 & 0.43 & -0.5439087
+& 0.4310448 & ▇▁▅▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tGravityAccMag_mean__}{%
+\subsubsection{tGravityAccMag-mean()}\label{tGravityAccMag_mean__}}
+
+\hypertarget{tGravityAccMag_mean___distribution}{%
+\paragraph{Distribution}\label{tGravityAccMag_mean___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tGravityAccMag_mean___distribution-250-1.pdf}
+\caption{Distribution of values for tGravityAccMag-mean()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tGravityAccMag_mean___summary}{%
+\paragraph{Summary statistics}\label{tGravityAccMag_mean___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tGravityAccMag-mean() & numeric & 0 & 1 & -0.99 & -0.48 & 0.64 &
+-0.4972897 & 0.4728834 & ▇▁▅▃▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tGravityAccMag_std__}{%
+\subsubsection{tGravityAccMag-std()}\label{tGravityAccMag_std__}}
+
+\hypertarget{tGravityAccMag_std___distribution}{%
+\paragraph{Distribution}\label{tGravityAccMag_std___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tGravityAccMag_std___distribution-257-1.pdf}
+\caption{Distribution of values for tGravityAccMag-std()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tGravityAccMag_std___summary}{%
+\paragraph{Summary statistics}\label{tGravityAccMag_std___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tGravityAccMag-std() & numeric & 0 & 1 & -0.99 & -0.61 & 0.43 &
+-0.5439087 & 0.4310448 & ▇▁▅▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAccJerkMag_mean__}{%
+\subsubsection{tBodyAccJerkMag-mean()}\label{tBodyAccJerkMag_mean__}}
+
+\hypertarget{tBodyAccJerkMag_mean___distribution}{%
+\paragraph{Distribution}\label{tBodyAccJerkMag_mean___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAccJerkMag_mean___distribution-264-1.pdf}
+\caption{Distribution of values for tBodyAccJerkMag-mean()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAccJerkMag_mean___summary}{%
+\paragraph{Summary statistics}\label{tBodyAccJerkMag_mean___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.99 & -0.82 & 0.43 &
+-0.6079296 & 0.3965272 & ▇▂▅▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyAccJerkMag_std__}{%
+\subsubsection{tBodyAccJerkMag-std()}\label{tBodyAccJerkMag_std__}}
+
+\hypertarget{tBodyAccJerkMag_std___distribution}{%
+\paragraph{Distribution}\label{tBodyAccJerkMag_std___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyAccJerkMag_std___distribution-271-1.pdf}
+\caption{Distribution of values for tBodyAccJerkMag-std()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyAccJerkMag_std___summary}{%
+\paragraph{Summary statistics}\label{tBodyAccJerkMag_std___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyAccJerkMag-std() & numeric & 0 & 1 & -0.99 & -0.8 & 0.45 &
+-0.5841756 & 0.4227953 & ▇▂▃▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyroMag_mean__}{%
+\subsubsection{tBodyGyroMag-mean()}\label{tBodyGyroMag_mean__}}
+
+\hypertarget{tBodyGyroMag_mean___distribution}{%
+\paragraph{Distribution}\label{tBodyGyroMag_mean___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyroMag_mean___distribution-278-1.pdf}
+\caption{Distribution of values for tBodyGyroMag-mean()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyroMag_mean___summary}{%
+\paragraph{Summary statistics}\label{tBodyGyroMag_mean___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyroMag-mean() & numeric & 0 & 1 & -0.98 & -0.66 & 0.42 &
+-0.5651631 & 0.3977338 & ▇▁▅▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyroMag_std__}{%
+\subsubsection{tBodyGyroMag-std()}\label{tBodyGyroMag_std__}}
+
+\hypertarget{tBodyGyroMag_std___distribution}{%
+\paragraph{Distribution}\label{tBodyGyroMag_std___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyroMag_std___distribution-285-1.pdf}
+\caption{Distribution of values for tBodyGyroMag-std()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyroMag_std___summary}{%
+\paragraph{Summary statistics}\label{tBodyGyroMag_std___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyroMag-std() & numeric & 0 & 1 & -0.98 & -0.74 & 0.3 & -0.6303947
+& 0.3368827 & ▇▂▅▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyroJerkMag_mean__}{%
+\subsubsection{tBodyGyroJerkMag-mean()}\label{tBodyGyroJerkMag_mean__}}
+
+\hypertarget{tBodyGyroJerkMag_mean___distribution}{%
+\paragraph{Distribution}\label{tBodyGyroJerkMag_mean___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyroJerkMag_mean___distribution-292-1.pdf}
+\caption{Distribution of values for tBodyGyroJerkMag-mean()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyroJerkMag_mean___summary}{%
+\paragraph{Summary statistics}\label{tBodyGyroJerkMag_mean___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyroJerkMag-mean() & numeric & 0 & 1 & -1 & -0.86 & 0.088 &
+-0.7363693 & 0.2767541 & ▇▃▃▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{tBodyGyroJerkMag_std__}{%
+\subsubsection{tBodyGyroJerkMag-std()}\label{tBodyGyroJerkMag_std__}}
+
+\hypertarget{tBodyGyroJerkMag_std___distribution}{%
+\paragraph{Distribution}\label{tBodyGyroJerkMag_std___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_tBodyGyroJerkMag_std___distribution-299-1.pdf}
+\caption{Distribution of values for tBodyGyroJerkMag-std()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{tBodyGyroJerkMag_std___summary}{%
+\paragraph{Summary statistics}\label{tBodyGyroJerkMag_std___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+tBodyGyroJerkMag-std() & numeric & 0 & 1 & -1 & -0.88 & 0.25 &
+-0.7550152 & 0.2655057 & ▇▃▂▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAcc_mean___X}{%
+\subsubsection{fBodyAcc-mean()-X}\label{fBodyAcc_mean___X}}
+
+\hypertarget{fBodyAcc_mean___X_distribution}{%
+\paragraph{Distribution}\label{fBodyAcc_mean___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAcc_mean___X_distribution-306-1.pdf}
+\caption{Distribution of values for fBodyAcc-mean()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAcc_mean___X_summary}{%
+\paragraph{Summary statistics}\label{fBodyAcc_mean___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAcc-mean()-X & numeric & 0 & 1 & -1 & -0.77 & 0.54 & -0.5758 &
+0.4300214 & ▇▁▃▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAcc_mean___Y}{%
+\subsubsection{fBodyAcc-mean()-Y}\label{fBodyAcc_mean___Y}}
+
+\hypertarget{fBodyAcc_mean___Y_distribution}{%
+\paragraph{Distribution}\label{fBodyAcc_mean___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAcc_mean___Y_distribution-313-1.pdf}
+\caption{Distribution of values for fBodyAcc-mean()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAcc_mean___Y_summary}{%
+\paragraph{Summary statistics}\label{fBodyAcc_mean___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAcc-mean()-Y & numeric & 0 & 1 & -0.99 & -0.59 & 0.52 & -0.4887327
+& 0.4806496 & ▇▁▃▃▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAcc_mean___Z}{%
+\subsubsection{fBodyAcc-mean()-Z}\label{fBodyAcc_mean___Z}}
+
+\hypertarget{fBodyAcc_mean___Z_distribution}{%
+\paragraph{Distribution}\label{fBodyAcc_mean___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAcc_mean___Z_distribution-320-1.pdf}
+\caption{Distribution of values for fBodyAcc-mean()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAcc_mean___Z_summary}{%
+\paragraph{Summary statistics}\label{fBodyAcc_mean___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAcc-mean()-Z & numeric & 0 & 1 & -0.99 & -0.72 & 0.28 & -0.6297388
+& 0.3556469 & ▇▂▅▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAcc_std___X}{%
+\subsubsection{fBodyAcc-std()-X}\label{fBodyAcc_std___X}}
+
+\hypertarget{fBodyAcc_std___X_distribution}{%
+\paragraph{Distribution}\label{fBodyAcc_std___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAcc_std___X_distribution-327-1.pdf}
+\caption{Distribution of values for fBodyAcc-std()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAcc_std___X_summary}{%
+\paragraph{Summary statistics}\label{fBodyAcc_std___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAcc-std()-X & numeric & 0 & 1 & -1 & -0.75 & 0.66 & -0.5522011 &
+0.4600233 & ▇▂▅▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAcc_std___Y}{%
+\subsubsection{fBodyAcc-std()-Y}\label{fBodyAcc_std___Y}}
+
+\hypertarget{fBodyAcc_std___Y_distribution}{%
+\paragraph{Distribution}\label{fBodyAcc_std___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAcc_std___Y_distribution-334-1.pdf}
+\caption{Distribution of values for fBodyAcc-std()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAcc_std___Y_summary}{%
+\paragraph{Summary statistics}\label{fBodyAcc_std___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAcc-std()-Y & numeric & 0 & 1 & -0.99 & -0.51 & 0.56 & -0.4814787 &
+0.4740277 & ▇▁▅▃▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAcc_std___Z}{%
+\subsubsection{fBodyAcc-std()-Z}\label{fBodyAcc_std___Z}}
+
+\hypertarget{fBodyAcc_std___Z_distribution}{%
+\paragraph{Distribution}\label{fBodyAcc_std___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAcc_std___Z_distribution-341-1.pdf}
+\caption{Distribution of values for fBodyAcc-std()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAcc_std___Z_summary}{%
+\paragraph{Summary statistics}\label{fBodyAcc_std___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAcc-std()-Z & numeric & 0 & 1 & -0.99 & -0.64 & 0.69 & -0.5823614 &
+0.3880902 & ▇▃▅▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAcc_meanFreq___X}{%
+\subsubsection{fBodyAcc-meanFreq()-X}\label{fBodyAcc_meanFreq___X}}
+
+\hypertarget{fBodyAcc_meanFreq___X_distribution}{%
+\paragraph{Distribution}\label{fBodyAcc_meanFreq___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAcc_meanFreq___X_distribution-348-1.pdf}
+\caption{Distribution of values for fBodyAcc-meanFreq()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAcc_meanFreq___X_summary}{%
+\paragraph{Summary statistics}\label{fBodyAcc_meanFreq___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAcc-meanFreq()-X & numeric & 0 & 1 & -0.64 & -0.26 & 0.16 &
+-0.2322661 & 0.1935684 & ▂▇▆▆▃ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAcc_meanFreq___Y}{%
+\subsubsection{fBodyAcc-meanFreq()-Y}\label{fBodyAcc_meanFreq___Y}}
+
+\hypertarget{fBodyAcc_meanFreq___Y_distribution}{%
+\paragraph{Distribution}\label{fBodyAcc_meanFreq___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAcc_meanFreq___Y_distribution-355-1.pdf}
+\caption{Distribution of values for fBodyAcc-meanFreq()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAcc_meanFreq___Y_summary}{%
+\paragraph{Summary statistics}\label{fBodyAcc_meanFreq___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAcc-meanFreq()-Y & numeric & 0 & 1 & -0.38 & 0.0079 & 0.47 &
+0.0115289 & 0.1447051 & ▁▅▇▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAcc_meanFreq___Z}{%
+\subsubsection{fBodyAcc-meanFreq()-Z}\label{fBodyAcc_meanFreq___Z}}
+
+\hypertarget{fBodyAcc_meanFreq___Z_distribution}{%
+\paragraph{Distribution}\label{fBodyAcc_meanFreq___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAcc_meanFreq___Z_distribution-362-1.pdf}
+\caption{Distribution of values for fBodyAcc-meanFreq()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAcc_meanFreq___Z_summary}{%
+\paragraph{Summary statistics}\label{fBodyAcc_meanFreq___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAcc-meanFreq()-Z & numeric & 0 & 1 & -0.52 & 0.066 & 0.4 &
+0.0437174 & 0.1850113 & ▁▂▆▇▃ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAccJerk_mean___X}{%
+\subsubsection{fBodyAccJerk-mean()-X}\label{fBodyAccJerk_mean___X}}
+
+\hypertarget{fBodyAccJerk_mean___X_distribution}{%
+\paragraph{Distribution}\label{fBodyAccJerk_mean___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAccJerk_mean___X_distribution-369-1.pdf}
+\caption{Distribution of values for fBodyAccJerk-mean()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAccJerk_mean___X_summary}{%
+\paragraph{Summary statistics}\label{fBodyAccJerk_mean___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAccJerk-mean()-X & numeric & 0 & 1 & -0.99 & -0.81 & 0.47 &
+-0.6139282 & 0.3982896 & ▇▂▃▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAccJerk_mean___Y}{%
+\subsubsection{fBodyAccJerk-mean()-Y}\label{fBodyAccJerk_mean___Y}}
+
+\hypertarget{fBodyAccJerk_mean___Y_distribution}{%
+\paragraph{Distribution}\label{fBodyAccJerk_mean___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAccJerk_mean___Y_distribution-376-1.pdf}
+\caption{Distribution of values for fBodyAccJerk-mean()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAccJerk_mean___Y_summary}{%
+\paragraph{Summary statistics}\label{fBodyAccJerk_mean___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.99 & -0.78 & 0.28 &
+-0.5881631 & 0.4077491 & ▇▁▃▃▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAccJerk_mean___Z}{%
+\subsubsection{fBodyAccJerk-mean()-Z}\label{fBodyAccJerk_mean___Z}}
+
+\hypertarget{fBodyAccJerk_mean___Z_distribution}{%
+\paragraph{Distribution}\label{fBodyAccJerk_mean___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAccJerk_mean___Z_distribution-383-1.pdf}
+\caption{Distribution of values for fBodyAccJerk-mean()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAccJerk_mean___Z_summary}{%
+\paragraph{Summary statistics}\label{fBodyAccJerk_mean___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.99 & -0.87 & 0.16 &
+-0.7143585 & 0.2970225 & ▇▂▃▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAccJerk_std___X}{%
+\subsubsection{fBodyAccJerk-std()-X}\label{fBodyAccJerk_std___X}}
+
+\hypertarget{fBodyAccJerk_std___X_distribution}{%
+\paragraph{Distribution}\label{fBodyAccJerk_std___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAccJerk_std___X_distribution-390-1.pdf}
+\caption{Distribution of values for fBodyAccJerk-std()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAccJerk_std___X_summary}{%
+\paragraph{Summary statistics}\label{fBodyAccJerk_std___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAccJerk-std()-X & numeric & 0 & 1 & -1 & -0.83 & 0.48 & -0.6121033
+& 0.4004506 & ▇▂▃▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAccJerk_std___Y}{%
+\subsubsection{fBodyAccJerk-std()-Y}\label{fBodyAccJerk_std___Y}}
+
+\hypertarget{fBodyAccJerk_std___Y_distribution}{%
+\paragraph{Distribution}\label{fBodyAccJerk_std___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAccJerk_std___Y_distribution-397-1.pdf}
+\caption{Distribution of values for fBodyAccJerk-std()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAccJerk_std___Y_summary}{%
+\paragraph{Summary statistics}\label{fBodyAccJerk_std___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.99 & -0.79 & 0.35 &
+-0.570731 & 0.4319873 & ▇▁▃▃▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAccJerk_std___Z}{%
+\subsubsection{fBodyAccJerk-std()-Z}\label{fBodyAccJerk_std___Z}}
+
+\hypertarget{fBodyAccJerk_std___Z_distribution}{%
+\paragraph{Distribution}\label{fBodyAccJerk_std___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAccJerk_std___Z_distribution-404-1.pdf}
+\caption{Distribution of values for fBodyAccJerk-std()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAccJerk_std___Z_summary}{%
+\paragraph{Summary statistics}\label{fBodyAccJerk_std___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.99 & -0.9 & -0.0062 &
+-0.7564894 & 0.2570577 & ▇▃▃▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAccJerk_meanFreq___X}{%
+\subsubsection{fBodyAccJerk-meanFreq()-X}\label{fBodyAccJerk_meanFreq___X}}
+
+\hypertarget{fBodyAccJerk_meanFreq___X_distribution}{%
+\paragraph{Distribution}\label{fBodyAccJerk_meanFreq___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAccJerk_meanFreq___X_distribution-411-1.pdf}
+\caption{Distribution of values for fBodyAccJerk-meanFreq()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAccJerk_meanFreq___X_summary}{%
+\paragraph{Summary statistics}\label{fBodyAccJerk_meanFreq___X_summary}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.23}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.13}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.10}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAccJerk-meanFreq()-X & numeric & 0 & 1 & -0.58 & -0.061 & 0.33 &
+-0.0691018 & 0.2541022 & ▂▇▂▅▇ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAccJerk_meanFreq___Y}{%
+\subsubsection{fBodyAccJerk-meanFreq()-Y}\label{fBodyAccJerk_meanFreq___Y}}
+
+\hypertarget{fBodyAccJerk_meanFreq___Y_distribution}{%
+\paragraph{Distribution}\label{fBodyAccJerk_meanFreq___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAccJerk_meanFreq___Y_distribution-418-1.pdf}
+\caption{Distribution of values for fBodyAccJerk-meanFreq()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAccJerk_meanFreq___Y_summary}{%
+\paragraph{Summary statistics}\label{fBodyAccJerk_meanFreq___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAccJerk-meanFreq()-Y & numeric & 0 & 1 & -0.6 & -0.23 & 0.2 &
+-0.2281021 & 0.1998647 & ▅▇▆▇▃ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAccJerk_meanFreq___Z}{%
+\subsubsection{fBodyAccJerk-meanFreq()-Z}\label{fBodyAccJerk_meanFreq___Z}}
+
+\hypertarget{fBodyAccJerk_meanFreq___Z_distribution}{%
+\paragraph{Distribution}\label{fBodyAccJerk_meanFreq___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAccJerk_meanFreq___Z_distribution-425-1.pdf}
+\caption{Distribution of values for fBodyAccJerk-meanFreq()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAccJerk_meanFreq___Z_summary}{%
+\paragraph{Summary statistics}\label{fBodyAccJerk_meanFreq___Z_summary}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.23}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.13}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.10}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAccJerk-meanFreq()-Z & numeric & 0 & 1 & -0.63 & -0.092 & 0.23 &
+-0.1376023 & 0.2078722 & ▂▅▃▇▅ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyGyro_mean___X}{%
+\subsubsection{fBodyGyro-mean()-X}\label{fBodyGyro_mean___X}}
+
+\hypertarget{fBodyGyro_mean___X_distribution}{%
+\paragraph{Distribution}\label{fBodyGyro_mean___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyGyro_mean___X_distribution-432-1.pdf}
+\caption{Distribution of values for fBodyGyro-mean()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyGyro_mean___X_summary}{%
+\paragraph{Summary statistics}\label{fBodyGyro_mean___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyGyro-mean()-X & numeric & 0 & 1 & -0.99 & -0.73 & 0.47 & -0.6367396
+& 0.3467628 & ▇▂▅▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyGyro_mean___Y}{%
+\subsubsection{fBodyGyro-mean()-Y}\label{fBodyGyro_mean___Y}}
+
+\hypertarget{fBodyGyro_mean___Y_distribution}{%
+\paragraph{Distribution}\label{fBodyGyro_mean___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyGyro_mean___Y_distribution-439-1.pdf}
+\caption{Distribution of values for fBodyGyro-mean()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyGyro_mean___Y_summary}{%
+\paragraph{Summary statistics}\label{fBodyGyro_mean___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyGyro-mean()-Y & numeric & 0 & 1 & -0.99 & -0.81 & 0.33 & -0.6766868
+& 0.3319182 & ▇▃▃▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyGyro_mean___Z}{%
+\subsubsection{fBodyGyro-mean()-Z}\label{fBodyGyro_mean___Z}}
+
+\hypertarget{fBodyGyro_mean___Z_distribution}{%
+\paragraph{Distribution}\label{fBodyGyro_mean___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyGyro_mean___Z_distribution-446-1.pdf}
+\caption{Distribution of values for fBodyGyro-mean()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyGyro_mean___Z_summary}{%
+\paragraph{Summary statistics}\label{fBodyGyro_mean___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyGyro-mean()-Z & numeric & 0 & 1 & -0.99 & -0.79 & 0.49 & -0.6043912
+& 0.3842603 & ▇▂▅▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyGyro_std___X}{%
+\subsubsection{fBodyGyro-std()-X}\label{fBodyGyro_std___X}}
+
+\hypertarget{fBodyGyro_std___X_distribution}{%
+\paragraph{Distribution}\label{fBodyGyro_std___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyGyro_std___X_distribution-453-1.pdf}
+\caption{Distribution of values for fBodyGyro-std()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyGyro_std___X_summary}{%
+\paragraph{Summary statistics}\label{fBodyGyro_std___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyGyro-std()-X & numeric & 0 & 1 & -0.99 & -0.81 & 0.2 & -0.7110357 &
+0.272789 & ▇▂▅▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyGyro_std___Y}{%
+\subsubsection{fBodyGyro-std()-Y}\label{fBodyGyro_std___Y}}
+
+\hypertarget{fBodyGyro_std___Y_distribution}{%
+\paragraph{Distribution}\label{fBodyGyro_std___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyGyro_std___Y_distribution-460-1.pdf}
+\caption{Distribution of values for fBodyGyro-std()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyGyro_std___Y_summary}{%
+\paragraph{Summary statistics}\label{fBodyGyro_std___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyGyro-std()-Y & numeric & 0 & 1 & -0.99 & -0.8 & 0.65 & -0.6454334 &
+0.3634445 & ▇▅▂▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyGyro_std___Z}{%
+\subsubsection{fBodyGyro-std()-Z}\label{fBodyGyro_std___Z}}
+
+\hypertarget{fBodyGyro_std___Z_distribution}{%
+\paragraph{Distribution}\label{fBodyGyro_std___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyGyro_std___Z_distribution-467-1.pdf}
+\caption{Distribution of values for fBodyGyro-std()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyGyro_std___Z_summary}{%
+\paragraph{Summary statistics}\label{fBodyGyro_std___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyGyro-std()-Z & numeric & 0 & 1 & -0.99 & -0.82 & 0.52 & -0.6577466
+& 0.3362014 & ▇▃▃▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyGyro_meanFreq___X}{%
+\subsubsection{fBodyGyro-meanFreq()-X}\label{fBodyGyro_meanFreq___X}}
+
+\hypertarget{fBodyGyro_meanFreq___X_distribution}{%
+\paragraph{Distribution}\label{fBodyGyro_meanFreq___X_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyGyro_meanFreq___X_distribution-474-1.pdf}
+\caption{Distribution of values for fBodyGyro-meanFreq()-X}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyGyro_meanFreq___X_summary}{%
+\paragraph{Summary statistics}\label{fBodyGyro_meanFreq___X_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyGyro-meanFreq()-X & numeric & 0 & 1 & -0.4 & -0.12 & 0.25 &
+-0.104551 & 0.1480975 & ▃▇▇▅▂ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyGyro_meanFreq___Y}{%
+\subsubsection{fBodyGyro-meanFreq()-Y}\label{fBodyGyro_meanFreq___Y}}
+
+\hypertarget{fBodyGyro_meanFreq___Y_distribution}{%
+\paragraph{Distribution}\label{fBodyGyro_meanFreq___Y_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyGyro_meanFreq___Y_distribution-481-1.pdf}
+\caption{Distribution of values for fBodyGyro-meanFreq()-Y}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyGyro_meanFreq___Y_summary}{%
+\paragraph{Summary statistics}\label{fBodyGyro_meanFreq___Y_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyGyro-meanFreq()-Y & numeric & 0 & 1 & -0.67 & -0.16 & 0.27 &
+-0.1674075 & 0.1788011 & ▁▅▇▆▂ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyGyro_meanFreq___Z}{%
+\subsubsection{fBodyGyro-meanFreq()-Z}\label{fBodyGyro_meanFreq___Z}}
+
+\hypertarget{fBodyGyro_meanFreq___Z_distribution}{%
+\paragraph{Distribution}\label{fBodyGyro_meanFreq___Z_distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyGyro_meanFreq___Z_distribution-488-1.pdf}
+\caption{Distribution of values for fBodyGyro-meanFreq()-Z}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyGyro_meanFreq___Z_summary}{%
+\paragraph{Summary statistics}\label{fBodyGyro_meanFreq___Z_summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyGyro-meanFreq()-Z & numeric & 0 & 1 & -0.51 & -0.051 & 0.38 &
+-0.0571809 & 0.1652298 & ▁▃▇▃▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAccMag_mean__}{%
+\subsubsection{fBodyAccMag-mean()}\label{fBodyAccMag_mean__}}
+
+\hypertarget{fBodyAccMag_mean___distribution}{%
+\paragraph{Distribution}\label{fBodyAccMag_mean___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAccMag_mean___distribution-495-1.pdf}
+\caption{Distribution of values for fBodyAccMag-mean()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAccMag_mean___summary}{%
+\paragraph{Summary statistics}\label{fBodyAccMag_mean___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAccMag-mean() & numeric & 0 & 1 & -0.99 & -0.67 & 0.59 & -0.5365167
+& 0.4516451 & ▇▂▃▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAccMag_std__}{%
+\subsubsection{fBodyAccMag-std()}\label{fBodyAccMag_std__}}
+
+\hypertarget{fBodyAccMag_std___distribution}{%
+\paragraph{Distribution}\label{fBodyAccMag_std___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAccMag_std___distribution-502-1.pdf}
+\caption{Distribution of values for fBodyAccMag-std()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAccMag_std___summary}{%
+\paragraph{Summary statistics}\label{fBodyAccMag_std___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAccMag-std() & numeric & 0 & 1 & -0.99 & -0.65 & 0.18 & -0.6209633
+& 0.3529148 & ▇▁▃▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyAccMag_meanFreq__}{%
+\subsubsection{fBodyAccMag-meanFreq()}\label{fBodyAccMag_meanFreq__}}
+
+\hypertarget{fBodyAccMag_meanFreq___distribution}{%
+\paragraph{Distribution}\label{fBodyAccMag_meanFreq___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyAccMag_meanFreq___distribution-509-1.pdf}
+\caption{Distribution of values for fBodyAccMag-meanFreq()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyAccMag_meanFreq___summary}{%
+\paragraph{Summary statistics}\label{fBodyAccMag_meanFreq___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyAccMag-meanFreq() & numeric & 0 & 1 & -0.31 & 0.081 & 0.44 &
+0.0761282 & 0.1404479 & ▁▅▇▅▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyBodyAccJerkMag_mean__}{%
+\subsubsection{fBodyBodyAccJerkMag-mean()}\label{fBodyBodyAccJerkMag_mean__}}
+
+\hypertarget{fBodyBodyAccJerkMag_mean___distribution}{%
+\paragraph{Distribution}\label{fBodyBodyAccJerkMag_mean___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyBodyAccJerkMag_mean___distribution-516-1.pdf}
+\caption{Distribution of values for fBodyBodyAccJerkMag-mean()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyBodyAccJerkMag_mean___summary}{%
+\paragraph{Summary
+statistics}\label{fBodyBodyAccJerkMag_mean___summary}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.24}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.12}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.04}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.10}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.99 & -0.79 & 0.54 &
+-0.5756175 & 0.4312321 & ▇▂▃▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyBodyAccJerkMag_std__}{%
+\subsubsection{fBodyBodyAccJerkMag-std()}\label{fBodyBodyAccJerkMag_std__}}
+
+\hypertarget{fBodyBodyAccJerkMag_std___distribution}{%
+\paragraph{Distribution}\label{fBodyBodyAccJerkMag_std___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyBodyAccJerkMag_std___distribution-523-1.pdf}
+\caption{Distribution of values for fBodyBodyAccJerkMag-std()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyBodyAccJerkMag_std___summary}{%
+\paragraph{Summary statistics}\label{fBodyBodyAccJerkMag_std___summary}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.23}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.13}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.10}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyBodyAccJerkMag-std() & numeric & 0 & 1 & -0.99 & -0.81 & 0.32 &
+-0.5991609 & 0.4086668 & ▇▁▃▂▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyBodyAccJerkMag_meanFreq__}{%
+\subsubsection{fBodyBodyAccJerkMag-meanFreq()}\label{fBodyBodyAccJerkMag_meanFreq__}}
+
+\hypertarget{fBodyBodyAccJerkMag_meanFreq___distribution}{%
+\paragraph{Distribution}\label{fBodyBodyAccJerkMag_meanFreq___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyBodyAccJerkMag_meanFreq___distribution-530-1.pdf}
+\caption{Distribution of values for fBodyBodyAccJerkMag-meanFreq()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyBodyAccJerkMag_meanFreq___summary}{%
+\paragraph{Summary
+statistics}\label{fBodyBodyAccJerkMag_meanFreq___summary}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.27}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.12}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.04}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.07}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyBodyAccJerkMag-meanFreq() & numeric & 0 & 1 & -0.13 & 0.17 & 0.49 &
+0.1625459 & 0.13783 & ▃▇▇▇▂ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyBodyGyroMag_mean__}{%
+\subsubsection{fBodyBodyGyroMag-mean()}\label{fBodyBodyGyroMag_mean__}}
+
+\hypertarget{fBodyBodyGyroMag_mean___distribution}{%
+\paragraph{Distribution}\label{fBodyBodyGyroMag_mean___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyBodyGyroMag_mean___distribution-537-1.pdf}
+\caption{Distribution of values for fBodyBodyGyroMag-mean()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyBodyGyroMag_mean___summary}{%
+\paragraph{Summary statistics}\label{fBodyBodyGyroMag_mean___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyBodyGyroMag-mean() & numeric & 0 & 1 & -0.99 & -0.77 & 0.2 &
+-0.6670991 & 0.3181183 & ▇▂▃▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyBodyGyroMag_std__}{%
+\subsubsection{fBodyBodyGyroMag-std()}\label{fBodyBodyGyroMag_std__}}
+
+\hypertarget{fBodyBodyGyroMag_std___distribution}{%
+\paragraph{Distribution}\label{fBodyBodyGyroMag_std___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyBodyGyroMag_std___distribution-544-1.pdf}
+\caption{Distribution of values for fBodyBodyGyroMag-std()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyBodyGyroMag_std___summary}{%
+\paragraph{Summary statistics}\label{fBodyBodyGyroMag_std___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyBodyGyroMag-std() & numeric & 0 & 1 & -0.98 & -0.77 & 0.24 &
+-0.6723223 & 0.2931842 & ▇▂▅▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyBodyGyroMag_meanFreq__}{%
+\subsubsection{fBodyBodyGyroMag-meanFreq()}\label{fBodyBodyGyroMag_meanFreq__}}
+
+\hypertarget{fBodyBodyGyroMag_meanFreq___distribution}{%
+\paragraph{Distribution}\label{fBodyBodyGyroMag_meanFreq___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyBodyGyroMag_meanFreq___distribution-551-1.pdf}
+\caption{Distribution of values for fBodyBodyGyroMag-meanFreq()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyBodyGyroMag_meanFreq___summary}{%
+\paragraph{Summary
+statistics}\label{fBodyBodyGyroMag_meanFreq___summary}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.25}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.12}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.04}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.10}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyBodyGyroMag-meanFreq() & numeric & 0 & 1 & -0.46 & -0.054 & 0.41 &
+-0.0360322 & 0.1807351 & ▂▇▇▅▂ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyBodyGyroJerkMag_mean__}{%
+\subsubsection{fBodyBodyGyroJerkMag-mean()}\label{fBodyBodyGyroJerkMag_mean__}}
+
+\hypertarget{fBodyBodyGyroJerkMag_mean___distribution}{%
+\paragraph{Distribution}\label{fBodyBodyGyroJerkMag_mean___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyBodyGyroJerkMag_mean___distribution-558-1.pdf}
+\caption{Distribution of values for fBodyBodyGyroJerkMag-mean()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyBodyGyroJerkMag_mean___summary}{%
+\paragraph{Summary
+statistics}\label{fBodyBodyGyroJerkMag_mean___summary}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.25}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.13}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.04}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.10}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyBodyGyroJerkMag-mean() & numeric & 0 & 1 & -1 & -0.88 & 0.15 &
+-0.7563853 & 0.2628722 & ▇▅▂▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyBodyGyroJerkMag_std__}{%
+\subsubsection{fBodyBodyGyroJerkMag-std()}\label{fBodyBodyGyroJerkMag_std__}}
+
+\hypertarget{fBodyBodyGyroJerkMag_std___distribution}{%
+\paragraph{Distribution}\label{fBodyBodyGyroJerkMag_std___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyBodyGyroJerkMag_std___distribution-565-1.pdf}
+\caption{Distribution of values for fBodyBodyGyroJerkMag-std()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyBodyGyroJerkMag_std___summary}{%
+\paragraph{Summary
+statistics}\label{fBodyBodyGyroJerkMag_std___summary}}
+
+\begin{longtable}[]{@{}llrrlllrrll@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyBodyGyroJerkMag-std() & numeric & 0 & 1 & -1 & -0.89 & 0.29 &
+-0.7715171 & 0.2504248 & ▇▃▁▁▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{fBodyBodyGyroJerkMag_meanFreq__}{%
+\subsubsection{fBodyBodyGyroJerkMag-meanFreq()}\label{fBodyBodyGyroJerkMag_meanFreq__}}
+
+\hypertarget{fBodyBodyGyroJerkMag_meanFreq___distribution}{%
+\paragraph{Distribution}\label{fBodyBodyGyroJerkMag_meanFreq___distribution}}
+
+\begin{figure}
+\centering
+\includegraphics{codebook_files/figure-latex/cb_bfi_fBodyBodyGyroJerkMag_meanFreq___distribution-572-1.pdf}
+\caption{Distribution of values for fBodyBodyGyroJerkMag-meanFreq()}
+\end{figure}
+
+0 missing values.
+
+\hypertarget{fBodyBodyGyroJerkMag_meanFreq___summary}{%
+\paragraph{Summary
+statistics}\label{fBodyBodyGyroJerkMag_meanFreq___summary}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.28}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.12}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.04}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.09}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 20\tabcolsep) * \real{0.05}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & label \\
+\midrule
+\endhead
+fBodyBodyGyroJerkMag-meanFreq() & numeric & 0 & 1 & -0.18 & 0.11 & 0.43
+& 0.1259225 & 0.1083232 & ▁▅▇▆▁ & NA \\
+\bottomrule
+\end{longtable}
+
+\hypertarget{missingness-report}{%
+\subsection{Missingness report}\label{missingness-report}}
+
+JSON-LD metadata
+
+The following JSON-LD can be found by search engines, if you share this
+codebook publicly on the web.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}
+  \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"Human Activity Recognition Using Smartphones Dataset"}\FunctionTok{,}
+  \DataTypeTok{"description"}\FunctionTok{:} \StringTok{"a small analysis by Franco Corona}\CharTok{\textbackslash{}n\textbackslash{}n\textbackslash{}n}\StringTok{\#\# Table of variables}\CharTok{\textbackslash{}n}\StringTok{This table contains variable names, labels, and number of missing values.}\CharTok{\textbackslash{}n}\StringTok{See the complete codebook for more.}\CharTok{\textbackslash{}n\textbackslash{}n}\StringTok{[truncated]}\CharTok{\textbackslash{}n\textbackslash{}n}\StringTok{\#\#\# Note}\CharTok{\textbackslash{}n}\StringTok{This dataset was automatically described using the [codebook R package](https://rubenarslan.github.io/codebook/) (version 0.9.2)."}\FunctionTok{,}
+  \DataTypeTok{"identifier"}\FunctionTok{:} \StringTok{"MX{-}001"}\FunctionTok{,}
+  \DataTypeTok{"datePublished"}\FunctionTok{:} \StringTok{"2021{-}05{-}09"}\FunctionTok{,}
+  \DataTypeTok{"creator"}\FunctionTok{:} \FunctionTok{\{}
+    \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"Person"}\FunctionTok{,}
+    \DataTypeTok{"givenName"}\FunctionTok{:} \StringTok{"Franco"}\FunctionTok{,}
+    \DataTypeTok{"familyName"}\FunctionTok{:} \StringTok{"Corona"}\FunctionTok{,}
+    \DataTypeTok{"email"}\FunctionTok{:} \StringTok{"exibios@gmail.com"}\FunctionTok{,}
+    \DataTypeTok{"affiliation"}\FunctionTok{:} \FunctionTok{\{}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"Coursera"}\FunctionTok{,}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"Data Science Specialization by Johns Hopkins University{-} Mexico city"}
+    \FunctionTok{\}}
+  \FunctionTok{\},}
+  \DataTypeTok{"citation"}\FunctionTok{:} \StringTok{"Franco Corona, Getting and Cleaning Data Course Project"}\FunctionTok{,}
+  \DataTypeTok{"url"}\FunctionTok{:} \StringTok{"https://github.com/exibios/ds\_jh\_m3\_w4"}\FunctionTok{,}
+  \DataTypeTok{"temporalCoverage"}\FunctionTok{:} \StringTok{"2021"}\FunctionTok{,}
+  \DataTypeTok{"spatialCoverage"}\FunctionTok{:} \StringTok{"Mexico city, México"}\FunctionTok{,}
+  \DataTypeTok{"keywords"}\FunctionTok{:} \OtherTok{[}\StringTok{"activity\_name"}\OtherTok{,} \StringTok{"subject"}\OtherTok{,} \StringTok{"tBodyAcc{-}mean(){-}X"}\OtherTok{,} \StringTok{"tBodyAcc{-}mean(){-}Y"}\OtherTok{,} \StringTok{"tBodyAcc{-}mean(){-}Z"}\OtherTok{,} \StringTok{"tBodyAcc{-}std(){-}X"}\OtherTok{,} \StringTok{"tBodyAcc{-}std(){-}Y"}\OtherTok{,} \StringTok{"tBodyAcc{-}std(){-}Z"}\OtherTok{,} \StringTok{"tGravityAcc{-}mean(){-}X"}\OtherTok{,} \StringTok{"tGravityAcc{-}mean(){-}Y"}\OtherTok{,} \StringTok{"tGravityAcc{-}mean(){-}Z"}\OtherTok{,} \StringTok{"tGravityAcc{-}std(){-}X"}\OtherTok{,} \StringTok{"tGravityAcc{-}std(){-}Y"}\OtherTok{,} \StringTok{"tGravityAcc{-}std(){-}Z"}\OtherTok{,} \StringTok{"tBodyAccJerk{-}mean(){-}X"}\OtherTok{,} \StringTok{"tBodyAccJerk{-}mean(){-}Y"}\OtherTok{,} \StringTok{"tBodyAccJerk{-}mean(){-}Z"}\OtherTok{,} \StringTok{"tBodyAccJerk{-}std(){-}X"}\OtherTok{,} \StringTok{"tBodyAccJerk{-}std(){-}Y"}\OtherTok{,} \StringTok{"tBodyAccJerk{-}std(){-}Z"}\OtherTok{,} \StringTok{"tBodyGyro{-}mean(){-}X"}\OtherTok{,} \StringTok{"tBodyGyro{-}mean(){-}Y"}\OtherTok{,} \StringTok{"tBodyGyro{-}mean(){-}Z"}\OtherTok{,} \StringTok{"tBodyGyro{-}std(){-}X"}\OtherTok{,} \StringTok{"tBodyGyro{-}std(){-}Y"}\OtherTok{,} \StringTok{"tBodyGyro{-}std(){-}Z"}\OtherTok{,} \StringTok{"tBodyGyroJerk{-}mean(){-}X"}\OtherTok{,} \StringTok{"tBodyGyroJerk{-}mean(){-}Y"}\OtherTok{,} \StringTok{"tBodyGyroJerk{-}mean(){-}Z"}\OtherTok{,} \StringTok{"tBodyGyroJerk{-}std(){-}X"}\OtherTok{,} \StringTok{"tBodyGyroJerk{-}std(){-}Y"}\OtherTok{,} \StringTok{"tBodyGyroJerk{-}std(){-}Z"}\OtherTok{,} \StringTok{"tBodyAccMag{-}mean()"}\OtherTok{,} \StringTok{"tBodyAccMag{-}std()"}\OtherTok{,} \StringTok{"tGravityAccMag{-}mean()"}\OtherTok{,} \StringTok{"tGravityAccMag{-}std()"}\OtherTok{,} \StringTok{"tBodyAccJerkMag{-}mean()"}\OtherTok{,} \StringTok{"tBodyAccJerkMag{-}std()"}\OtherTok{,} \StringTok{"tBodyGyroMag{-}mean()"}\OtherTok{,} \StringTok{"tBodyGyroMag{-}std()"}\OtherTok{,} \StringTok{"tBodyGyroJerkMag{-}mean()"}\OtherTok{,} \StringTok{"tBodyGyroJerkMag{-}std()"}\OtherTok{,} \StringTok{"fBodyAcc{-}mean(){-}X"}\OtherTok{,} \StringTok{"fBodyAcc{-}mean(){-}Y"}\OtherTok{,} \StringTok{"fBodyAcc{-}mean(){-}Z"}\OtherTok{,} \StringTok{"fBodyAcc{-}std(){-}X"}\OtherTok{,} \StringTok{"fBodyAcc{-}std(){-}Y"}\OtherTok{,} \StringTok{"fBodyAcc{-}std(){-}Z"}\OtherTok{,} \StringTok{"fBodyAcc{-}meanFreq(){-}X"}\OtherTok{,} \StringTok{"fBodyAcc{-}meanFreq(){-}Y"}\OtherTok{,} \StringTok{"fBodyAcc{-}meanFreq(){-}Z"}\OtherTok{,} \StringTok{"fBodyAccJerk{-}mean(){-}X"}\OtherTok{,} \StringTok{"fBodyAccJerk{-}mean(){-}Y"}\OtherTok{,} \StringTok{"fBodyAccJerk{-}mean(){-}Z"}\OtherTok{,} \StringTok{"fBodyAccJerk{-}std(){-}X"}\OtherTok{,} \StringTok{"fBodyAccJerk{-}std(){-}Y"}\OtherTok{,} \StringTok{"fBodyAccJerk{-}std(){-}Z"}\OtherTok{,} \StringTok{"fBodyAccJerk{-}meanFreq(){-}X"}\OtherTok{,} \StringTok{"fBodyAccJerk{-}meanFreq(){-}Y"}\OtherTok{,} \StringTok{"fBodyAccJerk{-}meanFreq(){-}Z"}\OtherTok{,} \StringTok{"fBodyGyro{-}mean(){-}X"}\OtherTok{,} \StringTok{"fBodyGyro{-}mean(){-}Y"}\OtherTok{,} \StringTok{"fBodyGyro{-}mean(){-}Z"}\OtherTok{,} \StringTok{"fBodyGyro{-}std(){-}X"}\OtherTok{,} \StringTok{"fBodyGyro{-}std(){-}Y"}\OtherTok{,} \StringTok{"fBodyGyro{-}std(){-}Z"}\OtherTok{,} \StringTok{"fBodyGyro{-}meanFreq(){-}X"}\OtherTok{,} \StringTok{"fBodyGyro{-}meanFreq(){-}Y"}\OtherTok{,} \StringTok{"fBodyGyro{-}meanFreq(){-}Z"}\OtherTok{,} \StringTok{"fBodyAccMag{-}mean()"}\OtherTok{,} \StringTok{"fBodyAccMag{-}std()"}\OtherTok{,} \StringTok{"fBodyAccMag{-}meanFreq()"}\OtherTok{,} \StringTok{"fBodyBodyAccJerkMag{-}mean()"}\OtherTok{,} \StringTok{"fBodyBodyAccJerkMag{-}std()"}\OtherTok{,} \StringTok{"fBodyBodyAccJerkMag{-}meanFreq()"}\OtherTok{,} \StringTok{"fBodyBodyGyroMag{-}mean()"}\OtherTok{,} \StringTok{"fBodyBodyGyroMag{-}std()"}\OtherTok{,} \StringTok{"fBodyBodyGyroMag{-}meanFreq()"}\OtherTok{,} \StringTok{"fBodyBodyGyroJerkMag{-}mean()"}\OtherTok{,} \StringTok{"fBodyBodyGyroJerkMag{-}std()"}\OtherTok{,} \StringTok{"fBodyBodyGyroJerkMag{-}meanFreq()"}\OtherTok{]}\FunctionTok{,}
+  \DataTypeTok{"@context"}\FunctionTok{:} \StringTok{"http://schema.org/"}\FunctionTok{,}
+  \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"Dataset"}\FunctionTok{,}
+  \DataTypeTok{"variableMeasured"}\FunctionTok{:} \OtherTok{[}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"activity\_name"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"subject"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAcc{-}mean(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAcc{-}mean(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAcc{-}mean(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAcc{-}std(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAcc{-}std(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAcc{-}std(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tGravityAcc{-}mean(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tGravityAcc{-}mean(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tGravityAcc{-}mean(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tGravityAcc{-}std(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tGravityAcc{-}std(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tGravityAcc{-}std(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAccJerk{-}mean(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAccJerk{-}mean(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAccJerk{-}mean(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAccJerk{-}std(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAccJerk{-}std(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAccJerk{-}std(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyro{-}mean(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyro{-}mean(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyro{-}mean(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyro{-}std(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyro{-}std(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyro{-}std(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyroJerk{-}mean(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyroJerk{-}mean(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyroJerk{-}mean(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyroJerk{-}std(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyroJerk{-}std(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyroJerk{-}std(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAccMag{-}mean()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAccMag{-}std()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tGravityAccMag{-}mean()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tGravityAccMag{-}std()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAccJerkMag{-}mean()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyAccJerkMag{-}std()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyroMag{-}mean()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyroMag{-}std()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyroJerkMag{-}mean()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"tBodyGyroJerkMag{-}std()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAcc{-}mean(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAcc{-}mean(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAcc{-}mean(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAcc{-}std(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAcc{-}std(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAcc{-}std(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAcc{-}meanFreq(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAcc{-}meanFreq(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAcc{-}meanFreq(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAccJerk{-}mean(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAccJerk{-}mean(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAccJerk{-}mean(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAccJerk{-}std(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAccJerk{-}std(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAccJerk{-}std(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAccJerk{-}meanFreq(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAccJerk{-}meanFreq(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAccJerk{-}meanFreq(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyGyro{-}mean(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyGyro{-}mean(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyGyro{-}mean(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyGyro{-}std(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyGyro{-}std(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyGyro{-}std(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyGyro{-}meanFreq(){-}X"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyGyro{-}meanFreq(){-}Y"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyGyro{-}meanFreq(){-}Z"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAccMag{-}mean()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAccMag{-}std()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyAccMag{-}meanFreq()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyBodyAccJerkMag{-}mean()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyBodyAccJerkMag{-}std()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyBodyAccJerkMag{-}meanFreq()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyBodyGyroMag{-}mean()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyBodyGyroMag{-}std()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyBodyGyroMag{-}meanFreq()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyBodyGyroJerkMag{-}mean()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyBodyGyroJerkMag{-}std()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}\OtherTok{,}
+    \FunctionTok{\{}
+      \DataTypeTok{"name"}\FunctionTok{:} \StringTok{"fBodyBodyGyroJerkMag{-}meanFreq()"}\FunctionTok{,}
+      \DataTypeTok{"@type"}\FunctionTok{:} \StringTok{"propertyValue"}
+    \FunctionTok{\}}
+  \OtherTok{]}
+\FunctionTok{\}}\ErrorTok{\textasciigrave{}}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{codebook-table}{%
+\subsubsection{Codebook table}\label{codebook-table}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 22\tabcolsep) * \real{0.22}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 22\tabcolsep) * \real{0.07}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 22\tabcolsep) * \real{0.07}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 22\tabcolsep) * \real{0.10}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 22\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 22\tabcolsep) * \real{0.06}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 22\tabcolsep) * \real{0.06}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 22\tabcolsep) * \real{0.08}}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 22\tabcolsep) * \real{0.07}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 22\tabcolsep) * \real{0.04}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 22\tabcolsep) * \real{0.13}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 22\tabcolsep) * \real{0.04}}@{}}
+\toprule
+name & data\_type & n\_missing & complete\_rate & min & median & max &
+mean & sd & hist & activity\_name & label \\
+\midrule
+\endhead
+activity\_name & NA & NA & NA & NA & NA & NA & NA & NA & NA & NA & NA \\
+subject & numeric & 0 & 1 & 1.0000 & 1.6e+01 & 30.0000 & 15.5000000 &
+8.8034084 & ▇▇▇▇▇ & LAYING & NA \\
+subject & numeric & 0 & 1 & 1.0000 & 1.6e+01 & 30.0000 & 15.5000000 &
+8.8034084 & ▇▇▇▇▇ & SITTING & NA \\
+subject & numeric & 0 & 1 & 1.0000 & 1.6e+01 & 30.0000 & 15.5000000 &
+8.8034084 & ▇▇▇▇▇ & STANDING & NA \\
+subject & numeric & 0 & 1 & 1.0000 & 1.6e+01 & 30.0000 & 15.5000000 &
+8.8034084 & ▇▇▇▇▇ & WALKING & NA \\
+subject & numeric & 0 & 1 & 1.0000 & 1.6e+01 & 30.0000 & 15.5000000 &
+8.8034084 & ▇▇▇▇▇ & WALKING\_DOWNSTAIRS & NA \\
+subject & numeric & 0 & 1 & 1.0000 & 1.6e+01 & 30.0000 & 15.5000000 &
+8.8034084 & ▇▇▇▇▇ & WALKING\_UPSTAIRS & NA \\
+tBodyAcc-mean()-X & numeric & 0 & 1 & 0.2216 & 2.7e-01 & 0.2895 &
+0.2676629 & 0.0161090 & ▂▂▃▇▇ & LAYING & NA \\
+tBodyAcc-mean()-X & numeric & 0 & 1 & 0.2483 & 2.7e-01 & 0.2847 &
+0.2728633 & 0.0076995 & ▁▁▁▇▂ & SITTING & NA \\
+tBodyAcc-mean()-X & numeric & 0 & 1 & 0.2767 & 2.8e-01 & 0.2835 &
+0.2791965 & 0.0018469 & ▇▃▅▁▂ & STANDING & NA \\
+tBodyAcc-mean()-X & numeric & 0 & 1 & 0.2718 & 2.8e-01 & 0.2837 &
+0.2763071 & 0.0029182 & ▇▆▇▃▁ & WALKING & NA \\
+tBodyAcc-mean()-X & numeric & 0 & 1 & 0.2627 & 2.9e-01 & 0.3015 &
+0.2880303 & 0.0081837 & ▁▁▅▇▅ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAcc-mean()-X & numeric & 0 & 1 & 0.2421 & 2.6e-01 & 0.2780 &
+0.2617563 & 0.0090123 & ▃▃▅▇▃ & WALKING\_UPSTAIRS & NA \\
+tBodyAcc-mean()-Y & numeric & 0 & 1 & -0.0405 & -1.8e-02 & -0.0103 &
+-0.0184958 & 0.0050374 & ▁▁▁▇▂ & LAYING & NA \\
+tBodyAcc-mean()-Y & numeric & 0 & 1 & -0.0270 & -1.4e-02 & -0.0013 &
+-0.0125072 & 0.0050470 & ▁▁▇▃▂ & SITTING & NA \\
+tBodyAcc-mean()-Y & numeric & 0 & 1 & -0.0200 & -1.7e-02 & -0.0070 &
+-0.0161006 & 0.0025163 & ▂▇▂▁▁ & STANDING & NA \\
+tBodyAcc-mean()-Y & numeric & 0 & 1 & -0.0225 & -1.8e-02 & -0.0148 &
+-0.0179133 & 0.0018153 & ▂▁▇▇▃ & WALKING & NA \\
+tBodyAcc-mean()-Y & numeric & 0 & 1 & -0.0227 & -1.7e-02 & -0.0056 &
+-0.0163188 & 0.0043238 & ▇▇▅▂▂ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAcc-mean()-Y & numeric & 0 & 1 & -0.0325 & -2.7e-02 & -0.0144 &
+-0.0259175 & 0.0048507 & ▅▇▃▂▁ & WALKING\_UPSTAIRS & NA \\
+tBodyAcc-mean()-Z & numeric & 0 & 1 & -0.1331 & -1.1e-01 & -0.0868 &
+-0.1074626 & 0.0073939 & ▁▁▇▅▁ & LAYING & NA \\
+tBodyAcc-mean()-Z & numeric & 0 & 1 & -0.1225 & -1.1e-01 & -0.0754 &
+-0.1054577 & 0.0085684 & ▁▇▂▁▁ & SITTING & NA \\
+tBodyAcc-mean()-Z & numeric & 0 & 1 & -0.1122 & -1.1e-01 & -0.0953 &
+-0.1063482 & 0.0043948 & ▅▇▂▂▁ & STANDING & NA \\
+tBodyAcc-mean()-Z & numeric & 0 & 1 & -0.1227 & -1.1e-01 & -0.0986 &
+-0.1088614 & 0.0043159 & ▁▁▇▆▁ & WALKING & NA \\
+tBodyAcc-mean()-Z & numeric & 0 & 1 & -0.1337 & -1.1e-01 & -0.0892 &
+-0.1060137 & 0.0090129 & ▁▂▇▇▃ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAcc-mean()-Z & numeric & 0 & 1 & -0.1525 & -1.2e-01 & -0.0973 &
+-0.1208394 & 0.0119444 & ▂▁▇▆▂ & WALKING\_UPSTAIRS & NA \\
+tBodyAcc-std()-X & numeric & 0 & 1 & -0.9848 & -9.7e-01 & -0.9091 &
+-0.9600140 & 0.0199649 & ▇▇▃▂▂ & LAYING & NA \\
+tBodyAcc-std()-X & numeric & 0 & 1 & -0.9944 & -9.8e-01 & -0.9572 &
+-0.9829330 & 0.0078312 & ▇▇▃▁▁ & SITTING & NA \\
+tBodyAcc-std()-X & numeric & 0 & 1 & -0.9961 & -9.9e-01 & -0.9667 &
+-0.9841874 & 0.0085377 & ▇▇▃▅▂ & STANDING & NA \\
+tBodyAcc-std()-X & numeric & 0 & 1 & -0.5960 & -3.2e-01 & -0.0087 &
+-0.3064350 & 0.1236406 & ▁▃▇▃▁ & WALKING & NA \\
+tBodyAcc-std()-X & numeric & 0 & 1 & -0.3026 & 1.0e-01 & 0.6269 &
+0.1160111 & 0.1925013 & ▁▇▇▃▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAcc-std()-X & numeric & 0 & 1 & -0.4598 & -2.4e-01 & 0.0836 &
+-0.2285823 & 0.1299483 & ▃▇▆▆▁ & WALKING\_UPSTAIRS & NA \\
+tBodyAcc-std()-Y & numeric & 0 & 1 & -0.9902 & -9.5e-01 & -0.6918 &
+-0.9424398 & 0.0567398 & ▇▂▁▁▁ & LAYING & NA \\
+tBodyAcc-std()-Y & numeric & 0 & 1 & -0.9749 & -9.4e-01 & -0.8566 &
+-0.9322079 & 0.0272103 & ▅▇▆▁▂ & SITTING & NA \\
+tBodyAcc-std()-Y & numeric & 0 & 1 & -0.9732 & -9.4e-01 & -0.8616 &
+-0.9317904 & 0.0316184 & ▇▆▅▂▃ & STANDING & NA \\
+tBodyAcc-std()-Y & numeric & 0 & 1 & -0.3146 & -7.4e-02 & 0.4898 &
+-0.0205037 & 0.1771187 & ▅▇▅▁▁ & WALKING & NA \\
+tBodyAcc-std()-Y & numeric & 0 & 1 & -0.2542 & -3.8e-03 & 0.6169 &
+0.0706551 & 0.2244107 & ▇▇▅▃▂ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAcc-std()-Y & numeric & 0 & 1 & -0.3262 & -9.4e-03 & 0.3488 &
+-0.0064891 & 0.1723169 & ▃▇▆▆▂ & WALKING\_UPSTAIRS & NA \\
+tBodyAcc-std()-Z & numeric & 0 & 1 & -0.9877 & -9.6e-01 & -0.7173 &
+-0.9471482 & 0.0539452 & ▇▁▁▁▁ & LAYING & NA \\
+tBodyAcc-std()-Z & numeric & 0 & 1 & -0.9776 & -9.4e-01 & -0.8320 &
+-0.9371164 & 0.0334331 & ▇▆▁▁▁ & SITTING & NA \\
+tBodyAcc-std()-Z & numeric & 0 & 1 & -0.9864 & -9.4e-01 & -0.8693 &
+-0.9390958 & 0.0277528 & ▆▇▇▅▁ & STANDING & NA \\
+tBodyAcc-std()-Z & numeric & 0 & 1 & -0.5863 & -2.8e-01 & 0.1642 &
+-0.2715387 & 0.1912162 & ▅▇▇▂▂ & WALKING & NA \\
+tBodyAcc-std()-Z & numeric & 0 & 1 & -0.4792 & -2.3e-01 & 0.4516 &
+-0.1855705 & 0.2096977 & ▇▇▅▂▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAcc-std()-Z & numeric & 0 & 1 & -0.4367 & -2.2e-01 & 0.6090 &
+-0.1728919 & 0.2118947 & ▇▅▂▁▁ & WALKING\_UPSTAIRS & NA \\
+tGravityAcc-mean()-X & numeric & 0 & 1 & -0.6800 & -4.0e-01 & -0.1348 &
+-0.3742821 & 0.1527027 & ▂▆▇▂▇ & LAYING & NA \\
+tGravityAcc-mean()-X & numeric & 0 & 1 & 0.5814 & 9.0e-01 & 0.9691 &
+0.8823581 & 0.0746825 & ▁▁▁▆▇ & SITTING & NA \\
+tGravityAcc-mean()-X & numeric & 0 & 1 & 0.8753 & 9.5e-01 & 0.9745 &
+0.9429458 & 0.0258884 & ▁▂▁▆▇ & STANDING & NA \\
+tGravityAcc-mean()-X & numeric & 0 & 1 & 0.8030 & 9.4e-01 & 0.9726 &
+0.9347980 & 0.0342896 & ▁▁▁▆▇ & WALKING & NA \\
+tGravityAcc-mean()-X & numeric & 0 & 1 & 0.8163 & 9.3e-01 & 0.9580 &
+0.9254631 & 0.0305017 & ▁▁▁▅▇ & WALKING\_DOWNSTAIRS & NA \\
+tGravityAcc-mean()-X & numeric & 0 & 1 & 0.6883 & 8.9e-01 & 0.9463 &
+0.8735821 & 0.0605970 & ▁▂▂▇▇ & WALKING\_UPSTAIRS & NA \\
+tGravityAcc-mean()-Y & numeric & 0 & 1 & -0.1393 & 7.1e-01 & 0.9566 &
+0.6222812 & 0.3020118 & ▂▁▂▇▇ & LAYING & NA \\
+tGravityAcc-mean()-Y & numeric & 0 & 1 & -0.1126 & 1.2e-01 & 0.3603 &
+0.1073694 & 0.1190597 & ▅▃▆▇▁ & SITTING & NA \\
+tGravityAcc-mean()-Y & numeric & 0 & 1 & -0.3701 & -1.8e-01 & -0.0104 &
+-0.1784574 & 0.0950072 & ▅▇▇▇▇ & STANDING & NA \\
+tGravityAcc-mean()-Y & numeric & 0 & 1 & -0.3710 & -2.0e-01 & -0.0314 &
+-0.1959510 & 0.0862039 & ▂▅▇▇▃ & WALKING & NA \\
+tGravityAcc-mean()-Y & numeric & 0 & 1 & -0.3567 & -1.7e-01 & -0.0352 &
+-0.1700252 & 0.0851866 & ▂▃▇▃▆ & WALKING\_DOWNSTAIRS & NA \\
+tGravityAcc-mean()-Y & numeric & 0 & 1 & -0.4799 & -2.9e-01 & -0.0378 &
+-0.2824940 & 0.1028399 & ▂▇▇▁▂ & WALKING\_UPSTAIRS & NA \\
+tGravityAcc-mean()-Z & numeric & 0 & 1 & -0.0369 & 6.1e-01 & 0.9579 &
+0.5508887 & 0.2922909 & ▃▃▃▇▆ & LAYING & NA \\
+tGravityAcc-mean()-Z & numeric & 0 & 1 & -0.1358 & 1.4e-01 & 0.4891 &
+0.1527351 & 0.1368160 & ▂▇▇▆▁ & SITTING & NA \\
+tGravityAcc-mean()-Z & numeric & 0 & 1 & -0.3382 & 1.4e-02 & 0.2012 &
+-0.0074610 & 0.1256090 & ▁▂▅▇▃ & STANDING & NA \\
+tGravityAcc-mean()-Z & numeric & 0 & 1 & -0.4225 & -6.5e-02 & 0.1884 &
+-0.0567423 & 0.1350956 & ▁▃▇▅▅ & WALKING & NA \\
+tGravityAcc-mean()-Z & numeric & 0 & 1 & -0.3926 & -5.9e-02 & 0.2188 &
+-0.0503076 & 0.1309021 & ▁▃▇▅▂ & WALKING\_DOWNSTAIRS & NA \\
+tGravityAcc-mean()-Z & numeric & 0 & 1 & -0.4951 & -1.5e-01 & 0.1466 &
+-0.1443458 & 0.1671465 & ▃▆▇▇▆ & WALKING\_UPSTAIRS & NA \\
+tGravityAcc-std()-X & numeric & 0 & 1 & -0.9827 & -9.5e-01 & -0.8296 &
+-0.9415509 & 0.0361465 & ▇▅▂▁▁ & LAYING & NA \\
+tGravityAcc-std()-X & numeric & 0 & 1 & -0.9940 & -9.8e-01 & -0.9553 &
+-0.9790766 & 0.0108198 & ▆▇▃▃▂ & SITTING & NA \\
+tGravityAcc-std()-X & numeric & 0 & 1 & -0.9968 & -9.9e-01 & -0.9720 &
+-0.9879623 & 0.0065815 & ▇▃▆▁▂ & STANDING & NA \\
+tGravityAcc-std()-X & numeric & 0 & 1 & -0.9838 & -9.8e-01 & -0.9696 &
+-0.9774790 & 0.0041765 & ▅▇▃▃▃ & WALKING & NA \\
+tGravityAcc-std()-X & numeric & 0 & 1 & -0.9649 & -9.5e-01 & -0.8997 &
+-0.9488643 & 0.0134700 & ▇▇▁▁▁ & WALKING\_DOWNSTAIRS & NA \\
+tGravityAcc-std()-X & numeric & 0 & 1 & -0.9622 & -9.5e-01 & -0.9165 &
+-0.9475821 & 0.0121931 & ▇▃▁▃▁ & WALKING\_UPSTAIRS & NA \\
+tGravityAcc-std()-Y & numeric & 0 & 1 & -0.9942 & -9.8e-01 & -0.6436 &
+-0.9633267 & 0.0630627 & ▇▁▁▁▁ & LAYING & NA \\
+tGravityAcc-std()-Y & numeric & 0 & 1 & -0.9840 & -9.6e-01 & -0.9039 &
+-0.9558453 & 0.0173943 & ▇▇▇▂▁ & SITTING & NA \\
+tGravityAcc-std()-Y & numeric & 0 & 1 & -0.9851 & -9.7e-01 & -0.9176 &
+-0.9687764 & 0.0145704 & ▇▇▁▁▁ & STANDING & NA \\
+tGravityAcc-std()-Y & numeric & 0 & 1 & -0.9753 & -9.7e-01 & -0.9545 &
+-0.9667608 & 0.0054203 & ▇▇▇▆▂ & WALKING & NA \\
+tGravityAcc-std()-Y & numeric & 0 & 1 & -0.9555 & -9.4e-01 & -0.9086 &
+-0.9343476 & 0.0119641 & ▃▇▅▃▃ & WALKING\_DOWNSTAIRS & NA \\
+tGravityAcc-std()-Y & numeric & 0 & 1 & -0.9528 & -9.2e-01 & -0.9005 &
+-0.9255206 & 0.0143819 & ▂▆▇▃▅ & WALKING\_UPSTAIRS & NA \\
+tGravityAcc-std()-Z & numeric & 0 & 1 & -0.9910 & -9.7e-01 & -0.6102 &
+-0.9516740 & 0.0706013 & ▇▁▁▁▁ & LAYING & NA \\
+tGravityAcc-std()-Z & numeric & 0 & 1 & -0.9783 & -9.5e-01 & -0.8686 &
+-0.9459171 & 0.0251589 & ▇▇▂▁▁ & SITTING & NA \\
+tGravityAcc-std()-Z & numeric & 0 & 1 & -0.9894 & -9.6e-01 & -0.8994 &
+-0.9521484 & 0.0207434 & ▃▇▇▂▂ & STANDING & NA \\
+tGravityAcc-std()-Z & numeric & 0 & 1 & -0.9749 & -9.6e-01 & -0.9292 &
+-0.9548618 & 0.0105104 & ▃▇▇▃▂ & WALKING & NA \\
+tGravityAcc-std()-Z & numeric & 0 & 1 & -0.9422 & -9.2e-01 & -0.8693 &
+-0.9122571 & 0.0201774 & ▇▇▇▃▃ & WALKING\_DOWNSTAIRS & NA \\
+tGravityAcc-std()-Z & numeric & 0 & 1 & -0.9381 & -9.1e-01 & -0.8369 &
+-0.9015478 & 0.0255153 & ▆▇▃▃▁ & WALKING\_UPSTAIRS & NA \\
+tBodyAccJerk-mean()-X & numeric & 0 & 1 & 0.0719 & 8.1e-02 & 0.0981 &
+0.0823654 & 0.0072750 & ▇▆▃▃▃ & LAYING & NA \\
+tBodyAccJerk-mean()-X & numeric & 0 & 1 & 0.0669 & 7.6e-02 & 0.0808 &
+0.0758167 & 0.0024968 & ▁▁▃▇▂ & SITTING & NA \\
+tBodyAccJerk-mean()-X & numeric & 0 & 1 & 0.0721 & 7.5e-02 & 0.0810 &
+0.0750817 & 0.0014884 & ▂▇▂▁▁ & STANDING & NA \\
+tBodyAccJerk-mean()-X & numeric & 0 & 1 & 0.0458 & 7.7e-02 & 0.0987 &
+0.0767354 & 0.0106969 & ▁▂▇▇▂ & WALKING & NA \\
+tBodyAccJerk-mean()-X & numeric & 0 & 1 & 0.0429 & 9.2e-02 & 0.1302 &
+0.0896426 & 0.0213540 & ▂▅▅▇▂ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAccJerk-mean()-X & numeric & 0 & 1 & 0.0427 & 7.5e-02 & 0.1063 &
+0.0771996 & 0.0135557 & ▁▂▇▃▂ & WALKING\_UPSTAIRS & NA \\
+tBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.0083 & 1.2e-02 & 0.0285 &
+0.0110464 & 0.0073511 & ▁▂▇▂▂ & LAYING & NA \\
+tBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.0109 & 5.8e-03 & 0.0148 &
+0.0045115 & 0.0068219 & ▂▃▂▇▇ & SITTING & NA \\
+tBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.0065 & 1.0e-02 & 0.0131 &
+0.0086973 & 0.0041543 & ▁▁▁▆▇ & STANDING & NA \\
+tBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.0211 & 1.3e-02 & 0.0357 &
+0.0111416 & 0.0136251 & ▂▁▇▇▂ & WALKING & NA \\
+tBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.0387 & -6.8e-05 & 0.0375 &
+0.0005934 & 0.0192377 & ▂▆▇▇▃ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.0183 & 5.2e-03 & 0.0568 &
+0.0094011 & 0.0193294 & ▇▇▇▃▁ & WALKING\_UPSTAIRS & NA \\
+tBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.0324 & -3.7e-03 & 0.0108 &
+-0.0048993 & 0.0093967 & ▁▁▂▇▃ & LAYING & NA \\
+tBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.0232 & -1.8e-03 & 0.0162 &
+-0.0024718 & 0.0077521 & ▁▅▇▅▁ & SITTING & NA \\
+tBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.0212 & -4.7e-03 & 0.0032 &
+-0.0047629 & 0.0047437 & ▁▁▃▇▃ & STANDING & NA \\
+tBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.0328 & -1.3e-03 & 0.0244 &
+-0.0022831 & 0.0119675 & ▁▃▇▆▁ & WALKING & NA \\
+tBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.0394 & -9.7e-03 & 0.0213 &
+-0.0085954 & 0.0123899 & ▁▂▇▃▂ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.0675 & -1.2e-03 & 0.0381 &
+-0.0067079 & 0.0249058 & ▁▃▃▇▂ & WALKING\_UPSTAIRS & NA \\
+tBodyAccJerk-std()-X & numeric & 0 & 1 & -0.9920 & -9.8e-01 & -0.9585 &
+-0.9797896 & 0.0080706 & ▇▇▃▃▂ & LAYING & NA \\
+tBodyAccJerk-std()-X & numeric & 0 & 1 & -0.9943 & -9.9e-01 & -0.9645 &
+-0.9844806 & 0.0075507 & ▇▃▅▂▁ & SITTING & NA \\
+tBodyAccJerk-std()-X & numeric & 0 & 1 & -0.9946 & -9.8e-01 & -0.9571 &
+-0.9795922 & 0.0108463 & ▇▃▅▂▃ & STANDING & NA \\
+tBodyAccJerk-std()-X & numeric & 0 & 1 & -0.6076 & -2.9e-01 & 0.1103 &
+-0.2608315 & 0.1608859 & ▂▇▇▃▂ & WALKING & NA \\
+tBodyAccJerk-std()-X & numeric & 0 & 1 & -0.5020 & -7.9e-03 & 0.5443 &
+-0.0172229 & 0.2018208 & ▂▅▇▃▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAccJerk-std()-X & numeric & 0 & 1 & -0.6636 & -3.6e-01 & -0.0085 &
+-0.3477634 & 0.1492768 & ▂▇▇▇▁ & WALKING\_UPSTAIRS & NA \\
+tBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.9895 & -9.7e-01 & -0.9241 &
+-0.9701866 & 0.0161277 & ▇▇▁▁▁ & LAYING & NA \\
+tBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.9886 & -9.8e-01 & -0.9446 &
+-0.9730406 & 0.0124952 & ▇▃▅▁▂ & SITTING & NA \\
+tBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.9867 & -9.7e-01 & -0.9312 &
+-0.9639181 & 0.0166023 & ▇▇▂▂▅ & STANDING & NA \\
+tBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.4256 & -8.8e-02 & 0.2443 &
+-0.0981441 & 0.1802757 & ▃▅▇▅▂ & WALKING & NA \\
+tBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.4470 & -9.5e-02 & 0.3553 &
+-0.0620894 & 0.2037598 & ▃▆▇▃▃ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.6271 & -3.3e-01 & -0.0124 &
+-0.3251096 & 0.1722666 & ▅▃▇▃▃ & WALKING\_UPSTAIRS & NA \\
+tBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.9933 & -9.8e-01 & -0.9549 &
+-0.9787530 & 0.0099723 & ▅▇▃▁▂ & LAYING & NA \\
+tBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.9905 & -9.8e-01 & -0.9586 &
+-0.9818978 & 0.0082036 & ▇▂▃▁▁ & SITTING & NA \\
+tBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.9923 & -9.8e-01 & -0.9589 &
+-0.9792285 & 0.0090856 & ▇▃▅▅▂ & STANDING & NA \\
+tBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.7514 & -5.0e-01 & -0.0293 &
+-0.4735892 & 0.1627693 & ▅▇▆▂▂ & WALKING & NA \\
+tBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.7115 & -3.8e-01 & 0.0310 &
+-0.3821227 & 0.1809503 & ▃▅▇▁▂ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.8125 & -6.4e-01 & -0.3279 &
+-0.6201550 & 0.1192522 & ▆▇▆▃▂ & WALKING\_UPSTAIRS & NA \\
+tBodyGyro-mean()-X & numeric & 0 & 1 & -0.0312 & -1.7e-02 & 0.0054 &
+-0.0160012 & 0.0094984 & ▃▇▅▂▂ & LAYING & NA \\
+tBodyGyro-mean()-X & numeric & 0 & 1 & -0.0547 & -3.8e-02 & -0.0199 &
+-0.0392888 & 0.0072474 & ▂▆▇▁▁ & SITTING & NA \\
+tBodyGyro-mean()-X & numeric & 0 & 1 & -0.0327 & -2.7e-02 & -0.0192 &
+-0.0268660 & 0.0030996 & ▂▇▅▃▁ & STANDING & NA \\
+tBodyGyro-mean()-X & numeric & 0 & 1 & -0.1059 & -3.0e-02 & 0.0235 &
+-0.0345676 & 0.0321744 & ▃▂▆▇▃ & WALKING & NA \\
+tBodyGyro-mean()-X & numeric & 0 & 1 & -0.2058 & -9.9e-02 & 0.0678 &
+-0.0867863 & 0.0560598 & ▁▇▅▃▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyro-mean()-X & numeric & 0 & 1 & -0.1640 & 3.9e-02 & 0.1927 &
+0.0088869 & 0.0922821 & ▃▃▂▇▁ & WALKING\_UPSTAIRS & NA \\
+tBodyGyro-mean()-Y & numeric & 0 & 1 & -0.1589 & -9.4e-02 & -0.0416 &
+-0.0940400 & 0.0247393 & ▁▂▇▅▂ & LAYING & NA \\
+tBodyGyro-mean()-Y & numeric & 0 & 1 & -0.0955 & -7.5e-02 & -0.0336 &
+-0.0725101 & 0.0141136 & ▅▇▆▂▂ & SITTING & NA \\
+tBodyGyro-mean()-Y & numeric & 0 & 1 & -0.0877 & -6.9e-02 & -0.0280 &
+-0.0674044 & 0.0108812 & ▂▇▃▁▁ & STANDING & NA \\
+tBodyGyro-mean()-Y & numeric & 0 & 1 & -0.0961 & -7.2e-02 & -0.0173 &
+-0.0693653 & 0.0174125 & ▆▇▃▂▁ & WALKING & NA \\
+tBodyGyro-mean()-Y & numeric & 0 & 1 & -0.1235 & -5.9e-02 & 0.0275 &
+-0.0518993 & 0.0400009 & ▃▇▅▃▃ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyro-mean()-Y & numeric & 0 & 1 & -0.2042 & -9.1e-02 & 0.0212 &
+-0.0903383 & 0.0608120 & ▃▆▅▇▃ & WALKING\_UPSTAIRS & NA \\
+tBodyGyro-mean()-Z & numeric & 0 & 1 & 0.0936 & 1.3e-01 & 0.1791 &
+0.1281253 & 0.0246959 & ▇▇▃▇▂ & LAYING & NA \\
+tBodyGyro-mean()-Z & numeric & 0 & 1 & 0.0259 & 8.1e-02 & 0.1012 &
+0.0771436 & 0.0158698 & ▁▁▂▇▃ & SITTING & NA \\
+tBodyGyro-mean()-Z & numeric & 0 & 1 & 0.0637 & 8.0e-02 & 0.1033 &
+0.0802734 & 0.0086407 & ▃▇▇▂▂ & STANDING & NA \\
+tBodyGyro-mean()-Z & numeric & 0 & 1 & 0.0510 & 8.4e-02 & 0.1183 &
+0.0864167 & 0.0156163 & ▂▁▇▂▂ & WALKING & NA \\
+tBodyGyro-mean()-Z & numeric & 0 & 1 & 0.0163 & 9.3e-02 & 0.1640 &
+0.0946341 & 0.0332253 & ▁▃▇▃▂ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyro-mean()-Z & numeric & 0 & 1 & -0.0725 & 6.8e-02 & 0.1457 &
+0.0580749 & 0.0546638 & ▂▂▃▇▃ & WALKING\_UPSTAIRS & NA \\
+tBodyGyro-std()-X & numeric & 0 & 1 & -0.9943 & -9.7e-01 & -0.8735 &
+-0.9669099 & 0.0266472 & ▇▃▁▁▁ & LAYING & NA \\
+tBodyGyro-std()-X & numeric & 0 & 1 & -0.9920 & -9.8e-01 & -0.9419 &
+-0.9800944 & 0.0119144 & ▇▃▂▁▁ & SITTING & NA \\
+tBodyGyro-std()-X & numeric & 0 & 1 & -0.9872 & -9.5e-01 & -0.8837 &
+-0.9449416 & 0.0316903 & ▇▆▂▃▃ & STANDING & NA \\
+tBodyGyro-std()-X & numeric & 0 & 1 & -0.7044 & -4.9e-01 & -0.0264 &
+-0.4667110 & 0.1429863 & ▅▇▅▁▁ & WALKING & NA \\
+tBodyGyro-std()-X & numeric & 0 & 1 & -0.5025 & -3.6e-01 & 0.2677 &
+-0.3285129 & 0.1384997 & ▇▆▁▁▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyro-std()-X & numeric & 0 & 1 & -0.5938 & -4.9e-01 & -0.3015 &
+-0.4626696 & 0.0863341 & ▆▇▅▃▅ & WALKING\_UPSTAIRS & NA \\
+tBodyGyro-std()-Y & numeric & 0 & 1 & -0.9928 & -9.6e-01 & -0.9266 &
+-0.9626165 & 0.0162811 & ▃▅▇▃▂ & LAYING & NA \\
+tBodyGyro-std()-Y & numeric & 0 & 1 & -0.9883 & -9.7e-01 & -0.9192 &
+-0.9661138 & 0.0166718 & ▇▂▆▂▁ & SITTING & NA \\
+tBodyGyro-std()-Y & numeric & 0 & 1 & -0.9942 & -9.7e-01 & -0.9039 &
+-0.9609785 & 0.0214057 & ▇▇▇▂▁ & STANDING & NA \\
+tBodyGyro-std()-Y & numeric & 0 & 1 & -0.6654 & -4.5e-01 & 0.2595 &
+-0.3527301 & 0.2337533 & ▇▃▃▂▁ & WALKING & NA \\
+tBodyGyro-std()-Y & numeric & 0 & 1 & -0.6995 & -3.8e-01 & 0.2138 &
+-0.3362141 & 0.2179857 & ▃▇▃▂▂ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyro-std()-Y & numeric & 0 & 1 & -0.6031 & -4.4e-01 & 0.4765 &
+-0.3411592 & 0.2556246 & ▇▂▂▁▁ & WALKING\_UPSTAIRS & NA \\
+tBodyGyro-std()-Z & numeric & 0 & 1 & -0.9851 & -9.7e-01 & -0.9083 &
+-0.9624446 & 0.0191055 & ▇▇▂▁▁ & LAYING & NA \\
+tBodyGyro-std()-Z & numeric & 0 & 1 & -0.9815 & -9.6e-01 & -0.9264 &
+-0.9565409 & 0.0153949 & ▆▇▅▅▃ & SITTING & NA \\
+tBodyGyro-std()-Z & numeric & 0 & 1 & -0.9855 & -9.6e-01 & -0.9073 &
+-0.9563454 & 0.0242003 & ▇▃▃▁▂ & STANDING & NA \\
+tBodyGyro-std()-Z & numeric & 0 & 1 & -0.6626 & -3.5e-01 & -0.0754 &
+-0.3321120 & 0.1439417 & ▂▅▇▃▅ & WALKING & NA \\
+tBodyGyro-std()-Z & numeric & 0 & 1 & -0.4985 & -3.0e-01 & 0.3562 &
+-0.2644015 & 0.1932800 & ▇▇▃▁▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyro-std()-Z & numeric & 0 & 1 & -0.6947 & -2.5e-01 & 0.5649 &
+-0.2267673 & 0.2601526 & ▃▇▆▁▁ & WALKING\_UPSTAIRS & NA \\
+tBodyGyroJerk-mean()-X & numeric & 0 & 1 & -0.1113 & -1.0e-01 & -0.0956
+& -0.1021714 & 0.0031715 & ▁▃▇▇▂ & LAYING & NA \\
+tBodyGyroJerk-mean()-X & numeric & 0 & 1 & -0.1036 & -9.5e-02 & -0.0890
+& -0.0954008 & 0.0028396 & ▂▁▇▅▁ & SITTING & NA \\
+tBodyGyroJerk-mean()-X & numeric & 0 & 1 & -0.1056 & -1.0e-01 & -0.0902
+& -0.0996268 & 0.0032069 & ▃▇▇▁▁ & STANDING & NA \\
+tBodyGyroJerk-mean()-X & numeric & 0 & 1 & -0.1359 & -9.2e-02 & -0.0578
+& -0.0945997 & 0.0200195 & ▃▅▇▇▃ & WALKING & NA \\
+tBodyGyroJerk-mean()-X & numeric & 0 & 1 & -0.1280 & -7.3e-02 & -0.0221
+& -0.0716447 & 0.0303564 & ▆▇▇▇▇ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyroJerk-mean()-X & numeric & 0 & 1 & -0.1572 & -1.2e-01 & -0.0456
+& -0.1128974 & 0.0323890 & ▇▅▃▃▃ & WALKING\_UPSTAIRS & NA \\
+tBodyGyroJerk-mean()-Y & numeric & 0 & 1 & -0.0427 & -3.9e-02 & -0.0276
+& -0.0382280 & 0.0030392 & ▆▇▅▁▁ & LAYING & NA \\
+tBodyGyroJerk-mean()-Y & numeric & 0 & 1 & -0.0467 & -4.1e-02 & -0.0334
+& -0.0407931 & 0.0025680 & ▁▂▇▁▁ & SITTING & NA \\
+tBodyGyroJerk-mean()-Y & numeric & 0 & 1 & -0.0485 & -4.2e-02 & -0.0372
+& -0.0423480 & 0.0023086 & ▁▂▇▇▁ & STANDING & NA \\
+tBodyGyroJerk-mean()-Y & numeric & 0 & 1 & -0.0617 & -4.5e-02 & -0.0307
+& -0.0445411 & 0.0079853 & ▁▇▆▃▅ & WALKING & NA \\
+tBodyGyroJerk-mean()-Y & numeric & 0 & 1 & -0.0768 & -5.0e-02 & -0.0292
+& -0.0515046 & 0.0135452 & ▃▅▇▅▆ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyroJerk-mean()-Y & numeric & 0 & 1 & -0.0720 & -3.9e-02 & -0.0132
+& -0.0387420 & 0.0129591 & ▁▅▇▆▃ & WALKING\_UPSTAIRS & NA \\
+tBodyGyroJerk-mean()-Z & numeric & 0 & 1 & -0.0741 & -6.3e-02 & -0.0535
+& -0.0642317 & 0.0055250 & ▆▅▅▇▂ & LAYING & NA \\
+tBodyGyroJerk-mean()-Z & numeric & 0 & 1 & -0.0591 & -5.0e-02 & -0.0436
+& -0.0504470 & 0.0041229 & ▃▁▇▆▅ & SITTING & NA \\
+tBodyGyroJerk-mean()-Z & numeric & 0 & 1 & -0.0584 & -5.2e-02 & -0.0417
+& -0.0520373 & 0.0036776 & ▂▇▃▁▁ & STANDING & NA \\
+tBodyGyroJerk-mean()-Z & numeric & 0 & 1 & -0.0903 & -5.2e-02 & -0.0343
+& -0.0542854 & 0.0108071 & ▁▁▃▇▂ & WALKING & NA \\
+tBodyGyroJerk-mean()-Z & numeric & 0 & 1 & -0.0868 & -5.6e-02 & -0.0270
+& -0.0552181 & 0.0159063 & ▃▃▇▃▅ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyroJerk-mean()-Z & numeric & 0 & 1 & -0.0925 & -5.3e-02 & -0.0069
+& -0.0525917 & 0.0196239 & ▂▇▇▃▃ & WALKING\_UPSTAIRS & NA \\
+tBodyGyroJerk-std()-X & numeric & 0 & 1 & -0.9965 & -9.8e-01 & -0.9186 &
+-0.9751417 & 0.0173794 & ▇▇▁▁▁ & LAYING & NA \\
+tBodyGyroJerk-std()-X & numeric & 0 & 1 & -0.9959 & -9.9e-01 & -0.9437 &
+-0.9850080 & 0.0119438 & ▇▁▂▁▁ & SITTING & NA \\
+tBodyGyroJerk-std()-X & numeric & 0 & 1 & -0.9929 & -9.7e-01 & -0.9216 &
+-0.9665450 & 0.0188713 & ▇▇▂▅▂ & STANDING & NA \\
+tBodyGyroJerk-std()-X & numeric & 0 & 1 & -0.6759 & -3.9e-01 & 0.0801 &
+-0.3751381 & 0.1561172 & ▃▇▅▂▁ & WALKING & NA \\
+tBodyGyroJerk-std()-X & numeric & 0 & 1 & -0.6767 & -4.1e-01 & 0.1791 &
+-0.3767385 & 0.1868900 & ▇▇▇▁▂ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyroJerk-std()-X & numeric & 0 & 1 & -0.7607 & -5.5e-01 & -0.1868 &
+-0.5432250 & 0.1416218 & ▇▇▇▂▂ & WALKING\_UPSTAIRS & NA \\
+tBodyGyroJerk-std()-Y & numeric & 0 & 1 & -0.9971 & -9.8e-01 & -0.9586 &
+-0.9799147 & 0.0095681 & ▃▆▇▃▂ & LAYING & NA \\
+tBodyGyroJerk-std()-Y & numeric & 0 & 1 & -0.9953 & -9.9e-01 & -0.9618 &
+-0.9861568 & 0.0077543 & ▇▂▃▁▁ & SITTING & NA \\
+tBodyGyroJerk-std()-Y & numeric & 0 & 1 & -0.9956 & -9.8e-01 & -0.9476 &
+-0.9800298 & 0.0117124 & ▇▆▆▂▁ & STANDING & NA \\
+tBodyGyroJerk-std()-Y & numeric & 0 & 1 & -0.8074 & -5.7e-01 & 0.2959 &
+-0.5145026 & 0.2262015 & ▇▇▂▁▁ & WALKING & NA \\
+tBodyGyroJerk-std()-Y & numeric & 0 & 1 & -0.8169 & -4.9e-01 & 0.1467 &
+-0.4595521 & 0.2316951 & ▅▇▃▁▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyroJerk-std()-Y & numeric & 0 & 1 & -0.8407 & -6.8e-01 & -0.3715 &
+-0.6611549 & 0.1306022 & ▆▇▅▂▂ & WALKING\_UPSTAIRS & NA \\
+tBodyGyroJerk-std()-Z & numeric & 0 & 1 & -0.9954 & -9.9e-01 & -0.9578 &
+-0.9842808 & 0.0094064 & ▇▆▃▁▁ & LAYING & NA \\
+tBodyGyroJerk-std()-Z & numeric & 0 & 1 & -0.9938 & -9.9e-01 & -0.9588 &
+-0.9832123 & 0.0092292 & ▇▃▂▂▁ & SITTING & NA \\
+tBodyGyroJerk-std()-Z & numeric & 0 & 1 & -0.9927 & -9.8e-01 & -0.9448 &
+-0.9767156 & 0.0133271 & ▇▅▂▂▁ & STANDING & NA \\
+tBodyGyroJerk-std()-Z & numeric & 0 & 1 & -0.6633 & -4.7e-01 & -0.1577 &
+-0.4430379 & 0.1390595 & ▃▇▆▂▃ & WALKING & NA \\
+tBodyGyroJerk-std()-Z & numeric & 0 & 1 & -0.6057 & -3.7e-01 & 0.1932 &
+-0.3162470 & 0.2070126 & ▃▇▂▁▂ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyroJerk-std()-Z & numeric & 0 & 1 & -0.7772 & -5.7e-01 & -0.1708 &
+-0.5538616 & 0.1481454 & ▆▇▂▁▂ & WALKING\_UPSTAIRS & NA \\
+tBodyAccMag-mean() & numeric & 0 & 1 & -0.9865 & -9.6e-01 & -0.5605 &
+-0.9408964 & 0.0773635 & ▇▁▁▁▁ & LAYING & NA \\
+tBodyAccMag-mean() & numeric & 0 & 1 & -0.9837 & -9.6e-01 & -0.8934 &
+-0.9530589 & 0.0213337 & ▅▇▃▁▁ & SITTING & NA \\
+tBodyAccMag-mean() & numeric & 0 & 1 & -0.9849 & -9.6e-01 & -0.9061 &
+-0.9536018 & 0.0217824 & ▇▇▆▃▂ & STANDING & NA \\
+tBodyAccMag-mean() & numeric & 0 & 1 & -0.4053 & -1.5e-01 & 0.0722 &
+-0.1610186 & 0.1168382 & ▂▆▇▃▃ & WALKING & NA \\
+tBodyAccMag-mean() & numeric & 0 & 1 & -0.2935 & 1.2e-01 & 0.6446 &
+0.1160172 & 0.1795431 & ▁▃▇▂▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAccMag-mean() & numeric & 0 & 1 & -0.3058 & -1.2e-01 & 0.2103 &
+-0.0911794 & 0.1299899 & ▅▇▃▃▂ & WALKING\_UPSTAIRS & NA \\
+tBodyAccMag-std() & numeric & 0 & 1 & -0.9865 & -9.5e-01 & -0.6493 &
+-0.9305147 & 0.0661595 & ▇▂▁▁▁ & LAYING & NA \\
+tBodyAccMag-std() & numeric & 0 & 1 & -0.9816 & -9.4e-01 & -0.8638 &
+-0.9370543 & 0.0277970 & ▅▇▆▁▂ & SITTING & NA \\
+tBodyAccMag-std() & numeric & 0 & 1 & -0.9819 & -9.5e-01 & -0.8798 &
+-0.9455402 & 0.0260366 & ▇▅▆▃▂ & STANDING & NA \\
+tBodyAccMag-std() & numeric & 0 & 1 & -0.5656 & -3.4e-01 & -0.0994 &
+-0.3334642 & 0.1243112 & ▃▇▇▆▅ & WALKING & NA \\
+tBodyAccMag-std() & numeric & 0 & 1 & -0.2595 & 1.3e-01 & 0.4284 &
+0.1270263 & 0.1649886 & ▂▃▇▆▃ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAccMag-std() & numeric & 0 & 1 & -0.4800 & -2.5e-01 & -0.0198 &
+-0.2439050 & 0.1111399 & ▂▇▇▅▃ & WALKING\_UPSTAIRS & NA \\
+tGravityAccMag-mean() & numeric & 0 & 1 & -0.9865 & -9.6e-01 & -0.5605 &
+-0.9408964 & 0.0773635 & ▇▁▁▁▁ & LAYING & NA \\
+tGravityAccMag-mean() & numeric & 0 & 1 & -0.9837 & -9.6e-01 & -0.8934 &
+-0.9530589 & 0.0213337 & ▅▇▃▁▁ & SITTING & NA \\
+tGravityAccMag-mean() & numeric & 0 & 1 & -0.9849 & -9.6e-01 & -0.9061 &
+-0.9536018 & 0.0217824 & ▇▇▆▃▂ & STANDING & NA \\
+tGravityAccMag-mean() & numeric & 0 & 1 & -0.4053 & -1.5e-01 & 0.0722 &
+-0.1610186 & 0.1168382 & ▂▆▇▃▃ & WALKING & NA \\
+tGravityAccMag-mean() & numeric & 0 & 1 & -0.2935 & 1.2e-01 & 0.6446 &
+0.1160172 & 0.1795431 & ▁▃▇▂▁ & WALKING\_DOWNSTAIRS & NA \\
+tGravityAccMag-mean() & numeric & 0 & 1 & -0.3058 & -1.2e-01 & 0.2103 &
+-0.0911794 & 0.1299899 & ▅▇▃▃▂ & WALKING\_UPSTAIRS & NA \\
+tGravityAccMag-std() & numeric & 0 & 1 & -0.9865 & -9.5e-01 & -0.6493 &
+-0.9305147 & 0.0661595 & ▇▂▁▁▁ & LAYING & NA \\
+tGravityAccMag-std() & numeric & 0 & 1 & -0.9816 & -9.4e-01 & -0.8638 &
+-0.9370543 & 0.0277970 & ▅▇▆▁▂ & SITTING & NA \\
+tGravityAccMag-std() & numeric & 0 & 1 & -0.9819 & -9.5e-01 & -0.8798 &
+-0.9455402 & 0.0260366 & ▇▅▆▃▂ & STANDING & NA \\
+tGravityAccMag-std() & numeric & 0 & 1 & -0.5656 & -3.4e-01 & -0.0994 &
+-0.3334642 & 0.1243112 & ▃▇▇▆▅ & WALKING & NA \\
+tGravityAccMag-std() & numeric & 0 & 1 & -0.2595 & 1.3e-01 & 0.4284 &
+0.1270263 & 0.1649886 & ▂▃▇▆▃ & WALKING\_DOWNSTAIRS & NA \\
+tGravityAccMag-std() & numeric & 0 & 1 & -0.4800 & -2.5e-01 & -0.0198 &
+-0.2439050 & 0.1111399 & ▂▇▇▅▃ & WALKING\_UPSTAIRS & NA \\
+tBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.9927 & -9.8e-01 & -0.9544
+& -0.9785255 & 0.0100472 & ▆▇▅▂▂ & LAYING & NA \\
+tBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.9928 & -9.9e-01 & -0.9627
+& -0.9818974 & 0.0085078 & ▇▅▃▃▂ & SITTING & NA \\
+tBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.9924 & -9.8e-01 & -0.9566
+& -0.9767955 & 0.0110404 & ▇▅▅▃▅ & STANDING & NA \\
+tBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.5383 & -2.6e-01 & 0.1095 &
+-0.2348770 & 0.1426192 & ▁▇▃▅▁ & WALKING & NA \\
+tBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.5005 & -1.1e-01 & 0.4345 &
+-0.0976448 & 0.1857011 & ▁▇▇▁▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.6792 & -3.9e-01 & -0.0958
+& -0.3778373 & 0.1406468 & ▂▆▇▆▃ & WALKING\_UPSTAIRS & NA \\
+tBodyAccJerkMag-std() & numeric & 0 & 1 & -0.9946 & -9.8e-01 & -0.9282 &
+-0.9731626 & 0.0141607 & ▆▇▆▁▁ & LAYING & NA \\
+tBodyAccJerkMag-std() & numeric & 0 & 1 & -0.9914 & -9.8e-01 & -0.9482 &
+-0.9781709 & 0.0115404 & ▇▁▅▁▁ & SITTING & NA \\
+tBodyAccJerkMag-std() & numeric & 0 & 1 & -0.9931 & -9.7e-01 & -0.9385 &
+-0.9709416 & 0.0154720 & ▇▇▃▅▂ & STANDING & NA \\
+tBodyAccJerkMag-std() & numeric & 0 & 1 & -0.5429 & -2.3e-01 & 0.1115 &
+-0.2089091 & 0.1744854 & ▂▇▅▇▃ & WALKING & NA \\
+tBodyAccJerkMag-std() & numeric & 0 & 1 & -0.4830 & -3.0e-02 & 0.4506 &
+0.0009183 & 0.1954389 & ▁▃▇▅▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyAccJerkMag-std() & numeric & 0 & 1 & -0.6745 & -3.8e-01 & -0.0877 &
+-0.3747878 & 0.1307862 & ▂▇▇▇▂ & WALKING\_UPSTAIRS & NA \\
+tBodyGyroMag-mean() & numeric & 0 & 1 & -0.9807 & -9.5e-01 & -0.8097 &
+-0.9370015 & 0.0329643 & ▇▅▂▁▁ & LAYING & NA \\
+tBodyGyroMag-mean() & numeric & 0 & 1 & -0.9776 & -9.5e-01 & -0.8979 &
+-0.9450420 & 0.0183135 & ▅▆▇▂▂ & SITTING & NA \\
+tBodyGyroMag-mean() & numeric & 0 & 1 & -0.9807 & -9.5e-01 & -0.8837 &
+-0.9414463 & 0.0298876 & ▇▆▃▂▅ & STANDING & NA \\
+tBodyGyroMag-mean() & numeric & 0 & 1 & -0.5005 & -3.0e-01 & 0.1000 &
+-0.2735650 & 0.1692588 & ▇▇▃▂▃ & WALKING & NA \\
+tBodyGyroMag-mean() & numeric & 0 & 1 & -0.3810 & -1.6e-01 & 0.4180 &
+-0.1227028 & 0.1659295 & ▃▇▂▁▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyroMag-mean() & numeric & 0 & 1 & -0.3691 & -2.3e-01 & 0.3658 &
+-0.1712209 & 0.1676874 & ▇▅▂▁▁ & WALKING\_UPSTAIRS & NA \\
+tBodyGyroMag-std() & numeric & 0 & 1 & -0.9806 & -9.5e-01 & -0.8190 &
+-0.9388843 & 0.0342611 & ▇▅▁▁▁ & LAYING & NA \\
+tBodyGyroMag-std() & numeric & 0 & 1 & -0.9814 & -9.5e-01 & -0.8981 &
+-0.9497132 & 0.0208573 & ▇▇▇▂▂ & SITTING & NA \\
+tBodyGyroMag-std() & numeric & 0 & 1 & -0.9787 & -9.3e-01 & -0.8437 &
+-0.9284860 & 0.0391756 & ▇▃▃▂▂ & STANDING & NA \\
+tBodyGyroMag-std() & numeric & 0 & 1 & -0.6651 & -4.2e-01 & 0.1633 &
+-0.3848091 & 0.1936804 & ▆▇▃▁▁ & WALKING & NA \\
+tBodyGyroMag-std() & numeric & 0 & 1 & -0.5080 & -2.8e-01 & 0.2378 &
+-0.2470299 & 0.1567005 & ▃▇▁▂▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyroMag-std() & numeric & 0 & 1 & -0.5281 & -3.8e-01 & 0.3000 &
+-0.3334459 & 0.1838432 & ▇▂▂▁▁ & WALKING\_UPSTAIRS & NA \\
+tBodyGyroJerkMag-mean() & numeric & 0 & 1 & -0.9973 & -9.9e-01 & -0.9556
+& -0.9821798 & 0.0098445 & ▃▇▂▂▁ & LAYING & NA \\
+tBodyGyroJerkMag-mean() & numeric & 0 & 1 & -0.9963 & -9.9e-01 & -0.9629
+& -0.9874439 & 0.0079341 & ▇▃▂▁▁ & SITTING & NA \\
+tBodyGyroJerkMag-mean() & numeric & 0 & 1 & -0.9950 & -9.8e-01 & -0.9479
+& -0.9784641 & 0.0121578 & ▇▇▅▃▁ & STANDING & NA \\
+tBodyGyroJerkMag-mean() & numeric & 0 & 1 & -0.6813 & -5.1e-01 & 0.0115
+& -0.4604427 & 0.1615925 & ▇▇▃▁▁ & WALKING & NA \\
+tBodyGyroJerkMag-mean() & numeric & 0 & 1 & -0.7017 & -4.4e-01 & 0.0876
+& -0.4093925 & 0.1839350 & ▃▇▂▁▁ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyroJerkMag-mean() & numeric & 0 & 1 & -0.7817 & -6.3e-01 & -0.3429
+& -0.6002928 & 0.1250778 & ▃▇▃▁▃ & WALKING\_UPSTAIRS & NA \\
+tBodyGyroJerkMag-std() & numeric & 0 & 1 & -0.9977 & -9.8e-01 & -0.9358
+& -0.9758578 & 0.0136562 & ▃▇▃▂▁ & LAYING & NA \\
+tBodyGyroJerkMag-std() & numeric & 0 & 1 & -0.9949 & -9.9e-01 & -0.9502
+& -0.9840818 & 0.0101625 & ▇▂▂▁▁ & SITTING & NA \\
+tBodyGyroJerkMag-std() & numeric & 0 & 1 & -0.9947 & -9.8e-01 & -0.9263
+& -0.9731127 & 0.0159804 & ▇▃▆▁▁ & STANDING & NA \\
+tBodyGyroJerkMag-std() & numeric & 0 & 1 & -0.7570 & -5.5e-01 & 0.2502 &
+-0.4996793 & 0.2173449 & ▇▅▂▁▁ & WALKING & NA \\
+tBodyGyroJerkMag-std() & numeric & 0 & 1 & -0.7442 & -4.6e-01 & 0.0595 &
+-0.4362729 & 0.1991936 & ▇▇▆▂▂ & WALKING\_DOWNSTAIRS & NA \\
+tBodyGyroJerkMag-std() & numeric & 0 & 1 & -0.8355 & -6.7e-01 & -0.4401
+& -0.6610867 & 0.1097246 & ▅▇▇▂▅ & WALKING\_UPSTAIRS & NA \\
+fBodyAcc-mean()-X & numeric & 0 & 1 & -0.9866 & -9.7e-01 & -0.9291 &
+-0.9658403 & 0.0158413 & ▅▇▃▁▂ & LAYING & NA \\
+fBodyAcc-mean()-X & numeric & 0 & 1 & -0.9940 & -9.8e-01 & -0.9594 &
+-0.9825527 & 0.0075649 & ▆▇▇▂▁ & SITTING & NA \\
+fBodyAcc-mean()-X & numeric & 0 & 1 & -0.9952 & -9.8e-01 & -0.9601 &
+-0.9812847 & 0.0100783 & ▇▅▃▅▂ & STANDING & NA \\
+fBodyAcc-mean()-X & numeric & 0 & 1 & -0.6090 & -3.1e-01 & -0.0300 &
+-0.2914845 & 0.1289434 & ▁▂▇▂▂ & WALKING & NA \\
+fBodyAcc-mean()-X & numeric & 0 & 1 & -0.3722 & 4.1e-02 & 0.5370 &
+0.0493870 & 0.1798865 & ▂▃▇▂▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAcc-mean()-X & numeric & 0 & 1 & -0.5216 & -3.1e-01 & -0.0554 &
+-0.2830248 & 0.1294121 & ▂▇▇▂▆ & WALKING\_UPSTAIRS & NA \\
+fBodyAcc-mean()-Y & numeric & 0 & 1 & -0.9890 & -9.6e-01 & -0.7849 &
+-0.9516387 & 0.0400280 & ▇▂▁▁▁ & LAYING & NA \\
+fBodyAcc-mean()-Y & numeric & 0 & 1 & -0.9765 & -9.5e-01 & -0.8919 &
+-0.9460138 & 0.0203866 & ▇▇▆▂▂ & SITTING & NA \\
+fBodyAcc-mean()-Y & numeric & 0 & 1 & -0.9771 & -9.5e-01 & -0.8895 &
+-0.9424866 & 0.0258853 & ▇▇▃▂▃ & STANDING & NA \\
+fBodyAcc-mean()-Y & numeric & 0 & 1 & -0.3215 & -6.8e-02 & 0.4035 &
+-0.0377384 & 0.1700392 & ▃▇▅▂▁ & WALKING & NA \\
+fBodyAcc-mean()-Y & numeric & 0 & 1 & -0.3090 & 5.3e-03 & 0.5242 &
+0.0682693 & 0.2118044 & ▂▇▅▂▂ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAcc-mean()-Y & numeric & 0 & 1 & -0.4050 & -1.2e-01 & 0.2634 &
+-0.1227879 & 0.1692374 & ▅▇▇▅▂ & WALKING\_UPSTAIRS & NA \\
+fBodyAcc-mean()-Z & numeric & 0 & 1 & -0.9895 & -9.7e-01 & -0.8162 &
+-0.9591647 & 0.0346846 & ▇▂▁▁▁ & LAYING & NA \\
+fBodyAcc-mean()-Z & numeric & 0 & 1 & -0.9830 & -9.6e-01 & -0.8922 &
+-0.9557294 & 0.0211383 & ▇▆▃▁▁ & SITTING & NA \\
+fBodyAcc-mean()-Z & numeric & 0 & 1 & -0.9877 & -9.6e-01 & -0.9151 &
+-0.9567350 & 0.0191466 & ▇▅▅▇▁ & STANDING & NA \\
+fBodyAcc-mean()-Z & numeric & 0 & 1 & -0.6310 & -3.4e-01 & 0.0814 &
+-0.3380589 & 0.1665815 & ▅▃▇▁▁ & WALKING & NA \\
+fBodyAcc-mean()-Z & numeric & 0 & 1 & -0.5561 & -2.5e-01 & 0.2807 &
+-0.2070592 & 0.2089482 & ▃▇▅▁▂ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAcc-mean()-Z & numeric & 0 & 1 & -0.5608 & -3.9e-01 & 0.1917 &
+-0.3616853 & 0.1652862 & ▇▇▁▁▁ & WALKING\_UPSTAIRS & NA \\
+fBodyAcc-std()-X & numeric & 0 & 1 & -0.9853 & -9.7e-01 & -0.9025 &
+-0.9581329 & 0.0214711 & ▇▇▃▂▂ & LAYING & NA \\
+fBodyAcc-std()-X & numeric & 0 & 1 & -0.9949 & -9.8e-01 & -0.9569 &
+-0.9832509 & 0.0079997 & ▇▇▅▁▁ & SITTING & NA \\
+fBodyAcc-std()-X & numeric & 0 & 1 & -0.9966 & -9.9e-01 & -0.9698 &
+-0.9856610 & 0.0078788 & ▇▇▅▃▃ & STANDING & NA \\
+fBodyAcc-std()-X & numeric & 0 & 1 & -0.5914 & -3.3e-01 & 0.0244 &
+-0.3139089 & 0.1256491 & ▁▇▇▃▁ & WALKING & NA \\
+fBodyAcc-std()-X & numeric & 0 & 1 & -0.2855 & 1.3e-01 & 0.6585 &
+0.1376020 & 0.2066099 & ▁▇▇▃▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAcc-std()-X & numeric & 0 & 1 & -0.4380 & -2.3e-01 & 0.1320 &
+-0.2098548 & 0.1337631 & ▆▇▆▃▁ & WALKING\_UPSTAIRS & NA \\
+fBodyAcc-std()-Y & numeric & 0 & 1 & -0.9907 & -9.5e-01 & -0.6724 &
+-0.9414599 & 0.0603050 & ▇▁▁▁▁ & LAYING & NA \\
+fBodyAcc-std()-Y & numeric & 0 & 1 & -0.9750 & -9.3e-01 & -0.8497 &
+-0.9297112 & 0.0285888 & ▅▇▅▁▁ & SITTING & NA \\
+fBodyAcc-std()-Y & numeric & 0 & 1 & -0.9723 & -9.4e-01 & -0.8574 &
+-0.9304308 & 0.0322331 & ▇▆▅▂▃ & STANDING & NA \\
+fBodyAcc-std()-Y & numeric & 0 & 1 & -0.3544 & -1.3e-01 & 0.4384 &
+-0.0751476 & 0.1748870 & ▅▇▅▁▁ & WALKING & NA \\
+fBodyAcc-std()-Y & numeric & 0 & 1 & -0.3225 & -7.1e-02 & 0.5602 &
+0.0018928 & 0.2206583 & ▇▇▃▃▂ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAcc-std()-Y & numeric & 0 & 1 & -0.3410 & -3.5e-02 & 0.3561 &
+-0.0140156 & 0.1685209 & ▂▇▅▅▂ & WALKING\_UPSTAIRS & NA \\
+fBodyAcc-std()-Z & numeric & 0 & 1 & -0.9872 & -9.6e-01 & -0.6941 &
+-0.9447661 & 0.0585413 & ▇▁▁▁▁ & LAYING & NA \\
+fBodyAcc-std()-Z & numeric & 0 & 1 & -0.9757 & -9.4e-01 & -0.8180 &
+-0.9323640 & 0.0363950 & ▇▆▁▁▁ & SITTING & NA \\
+fBodyAcc-std()-Z & numeric & 0 & 1 & -0.9860 & -9.4e-01 & -0.8582 &
+-0.9346020 & 0.0296308 & ▅▇▇▃▁ & STANDING & NA \\
+fBodyAcc-std()-Z & numeric & 0 & 1 & -0.5942 & -3.0e-01 & 0.1333 &
+-0.2946631 & 0.1949095 & ▆▆▇▂▂ & WALKING & NA \\
+fBodyAcc-std()-Z & numeric & 0 & 1 & -0.5127 & -2.8e-01 & 0.4276 &
+-0.2419284 & 0.1986884 & ▇▇▃▁▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAcc-std()-Z & numeric & 0 & 1 & -0.4186 & -2.2e-01 & 0.6871 &
+-0.1458449 & 0.2301709 & ▇▃▂▁▁ & WALKING\_UPSTAIRS & NA \\
+fBodyAcc-meanFreq()-X & numeric & 0 & 1 & -0.6359 & -2.2e-01 & -0.0638 &
+-0.2571250 & 0.1426467 & ▁▃▃▆▇ & LAYING & NA \\
+fBodyAcc-meanFreq()-X & numeric & 0 & 1 & -0.3153 & -2.5e-02 & 0.0879 &
+-0.0410614 & 0.0870237 & ▁▁▃▇▅ & SITTING & NA \\
+fBodyAcc-meanFreq()-X & numeric & 0 & 1 & -0.2459 & 2.8e-02 & 0.1591 &
+0.0172311 & 0.0875476 & ▁▂▅▇▆ & STANDING & NA \\
+fBodyAcc-meanFreq()-X & numeric & 0 & 1 & -0.4149 & -3.1e-01 & -0.1386 &
+-0.2874479 & 0.0783085 & ▅▇▅▅▃ & WALKING & NA \\
+fBodyAcc-meanFreq()-X & numeric & 0 & 1 & -0.5546 & -4.0e-01 & -0.2008 &
+-0.3957187 & 0.0888958 & ▅▆▇▆▂ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAcc-meanFreq()-X & numeric & 0 & 1 & -0.5934 & -4.4e-01 & -0.2140 &
+-0.4294748 & 0.0881879 & ▃▆▇▃▂ & WALKING\_UPSTAIRS & NA \\
+fBodyAcc-meanFreq()-Y & numeric & 0 & 1 & -0.2153 & 2.0e-01 & 0.4665 &
+0.1428680 & 0.1755661 & ▂▃▃▇▂ & LAYING & NA \\
+fBodyAcc-meanFreq()-Y & numeric & 0 & 1 & -0.1201 & 7.7e-02 & 0.1735 &
+0.0623575 & 0.0768110 & ▂▅▅▇▇ & SITTING & NA \\
+fBodyAcc-meanFreq()-Y & numeric & 0 & 1 & -0.2379 & -2.1e-02 & 0.1175 &
+-0.0338334 & 0.0854049 & ▁▅▇▇▅ & STANDING & NA \\
+fBodyAcc-meanFreq()-Y & numeric & 0 & 1 & -0.1633 & 2.6e-02 & 0.3098 &
+0.0549226 & 0.1107340 & ▁▇▅▃▂ & WALKING & NA \\
+fBodyAcc-meanFreq()-Y & numeric & 0 & 1 & -0.1734 & 1.2e-02 & 0.2136 &
+0.0045025 & 0.0862619 & ▂▂▇▂▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAcc-meanFreq()-Y & numeric & 0 & 1 & -0.3795 & -1.5e-01 & 0.0198 &
+-0.1616439 & 0.0992929 & ▂▅▅▇▂ & WALKING\_UPSTAIRS & NA \\
+fBodyAcc-meanFreq()-Z & numeric & 0 & 1 & -0.0316 & 2.2e-01 & 0.4025 &
+0.2029522 & 0.1113967 & ▃▆▇▇▆ & LAYING & NA \\
+fBodyAcc-meanFreq()-Z & numeric & 0 & 1 & -0.1317 & 8.8e-02 & 0.2435 &
+0.0791276 & 0.1002190 & ▃▆▇▇▆ & SITTING & NA \\
+fBodyAcc-meanFreq()-Z & numeric & 0 & 1 & -0.1263 & 2.8e-02 & 0.2924 &
+0.0556229 & 0.0917131 & ▁▇▅▂▁ & STANDING & NA \\
+fBodyAcc-meanFreq()-Z & numeric & 0 & 1 & -0.1755 & 7.2e-02 & 0.3519 &
+0.0826121 & 0.1314465 & ▅▆▇▅▃ & WALKING & NA \\
+fBodyAcc-meanFreq()-Z & numeric & 0 & 1 & -0.1520 & 1.1e-01 & 0.3063 &
+0.0979379 & 0.1300088 & ▃▃▇▇▆ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAcc-meanFreq()-Z & numeric & 0 & 1 & -0.5201 & -2.4e-01 & 0.0489 &
+-0.2559481 & 0.1451060 & ▃▁▇▂▁ & WALKING\_UPSTAIRS & NA \\
+fBodyAccJerk-mean()-X & numeric & 0 & 1 & -0.9922 & -9.8e-01 & -0.9571 &
+-0.9796100 & 0.0082058 & ▆▇▂▂▁ & LAYING & NA \\
+fBodyAccJerk-mean()-X & numeric & 0 & 1 & -0.9945 & -9.9e-01 & -0.9656 &
+-0.9846864 & 0.0072997 & ▇▃▃▃▁ & SITTING & NA \\
+fBodyAccJerk-mean()-X & numeric & 0 & 1 & -0.9946 & -9.8e-01 & -0.9577 &
+-0.9796332 & 0.0108469 & ▇▃▃▃▃ & STANDING & NA \\
+fBodyAccJerk-mean()-X & numeric & 0 & 1 & -0.6256 & -3.3e-01 & 0.0336 &
+-0.3053391 & 0.1483570 & ▂▇▇▅▂ & WALKING & NA \\
+fBodyAccJerk-mean()-X & numeric & 0 & 1 & -0.5258 & -3.8e-02 & 0.4743 &
+-0.0569468 & 0.2000530 & ▂▃▇▂▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAccJerk-mean()-X & numeric & 0 & 1 & -0.6682 & -3.8e-01 & -0.0382 &
+-0.3773538 & 0.1437602 & ▃▇▆▇▁ & WALKING\_UPSTAIRS & NA \\
+fBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.9894 & -9.7e-01 & -0.9225 &
+-0.9704350 & 0.0159098 & ▇▇▁▂▁ & LAYING & NA \\
+fBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.9883 & -9.8e-01 & -0.9443 &
+-0.9731642 & 0.0121325 & ▇▅▃▂▁ & SITTING & NA \\
+fBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.9863 & -9.7e-01 & -0.9314 &
+-0.9641165 & 0.0163253 & ▇▇▂▃▃ & STANDING & NA \\
+fBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.4543 & -1.5e-01 & 0.1600 &
+-0.1651358 & 0.1658103 & ▅▅▇▆▂ & WALKING & NA \\
+fBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.4660 & -1.2e-01 & 0.2767 &
+-0.1050609 & 0.1884753 & ▂▇▇▃▅ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAccJerk-mean()-Y & numeric & 0 & 1 & -0.6408 & -3.5e-01 & -0.0258 &
+-0.3510660 & 0.1646324 & ▅▅▇▃▃ & WALKING\_UPSTAIRS & NA \\
+fBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.9920 & -9.8e-01 & -0.9481 &
+-0.9758157 & 0.0110559 & ▆▇▅▂▂ & LAYING & NA \\
+fBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.9888 & -9.8e-01 & -0.9542 &
+-0.9791212 & 0.0090034 & ▇▂▃▁▁ & SITTING & NA \\
+fBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.9908 & -9.8e-01 & -0.9527 &
+-0.9758700 & 0.0102809 & ▇▃▆▃▂ & STANDING & NA \\
+fBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.7290 & -4.7e-01 & -0.0572 &
+-0.4453329 & 0.1604329 & ▃▇▇▁▂ & WALKING & NA \\
+fBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.6868 & -3.4e-01 & 0.1578 &
+-0.3261031 & 0.1978329 & ▃▆▇▁▂ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAccJerk-mean()-Z & numeric & 0 & 1 & -0.7933 & -6.1e-01 & -0.2640 &
+-0.5839080 & 0.1302471 & ▅▇▅▂▂ & WALKING\_UPSTAIRS & NA \\
+fBodyAccJerk-std()-X & numeric & 0 & 1 & -0.9925 & -9.8e-01 & -0.9642 &
+-0.9819186 & 0.0071753 & ▇▇▃▂▂ & LAYING & NA \\
+fBodyAccJerk-std()-X & numeric & 0 & 1 & -0.9946 & -9.9e-01 & -0.9667 &
+-0.9857018 & 0.0071490 & ▇▃▂▂▁ & SITTING & NA \\
+fBodyAccJerk-std()-X & numeric & 0 & 1 & -0.9951 & -9.8e-01 & -0.9606 &
+-0.9814878 & 0.0098161 & ▇▃▅▃▂ & STANDING & NA \\
+fBodyAccJerk-std()-X & numeric & 0 & 1 & -0.6241 & -3.1e-01 & 0.0908 &
+-0.2813614 & 0.1624229 & ▂▇▆▅▂ & WALKING & NA \\
+fBodyAccJerk-std()-X & numeric & 0 & 1 & -0.5222 & -7.2e-02 & 0.4768 &
+-0.0656311 & 0.1891491 & ▂▃▇▃▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAccJerk-std()-X & numeric & 0 & 1 & -0.6902 & -3.9e-01 & -0.0678 &
+-0.3765189 & 0.1446766 & ▂▇▇▆▂ & WALKING\_UPSTAIRS & NA \\
+fBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.9905 & -9.7e-01 & -0.9322 &
+-0.9721507 & 0.0152180 & ▇▇▃▂▂ & LAYING & NA \\
+fBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.9899 & -9.8e-01 & -0.9469 &
+-0.9749504 & 0.0120452 & ▇▃▃▂▂ & SITTING & NA \\
+fBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.9882 & -9.7e-01 & -0.9362 &
+-0.9664485 & 0.0157146 & ▅▇▂▂▅ & STANDING & NA \\
+fBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.4336 & -6.1e-02 & 0.3159 &
+-0.0865426 & 0.1881157 & ▅▅▇▃▂ & WALKING & NA \\
+fBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.4645 & -1.3e-01 & 0.3498 &
+-0.0803303 & 0.2108234 & ▃▇▆▃▃ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAccJerk-std()-Y & numeric & 0 & 1 & -0.6381 & -3.6e-01 & -0.0132 &
+-0.3439633 & 0.1708110 & ▅▃▇▃▃ & WALKING\_UPSTAIRS & NA \\
+fBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.9931 & -9.8e-01 & -0.9597 &
+-0.9803254 & 0.0088883 & ▅▇▃▂▂ & LAYING & NA \\
+fBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.9908 & -9.9e-01 & -0.9616 &
+-0.9833161 & 0.0073909 & ▇▂▃▁▁ & SITTING & NA \\
+fBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.9923 & -9.8e-01 & -0.9640 &
+-0.9812839 & 0.0078629 & ▇▃▅▅▂ & STANDING & NA \\
+fBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.7724 & -5.3e-01 & -0.0062 &
+-0.5008988 & 0.1665351 & ▃▇▆▁▁ & WALKING & NA \\
+fBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.7350 & -4.2e-01 & -0.0847 &
+-0.4375482 & 0.1653892 & ▃▅▇▂▂ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAccJerk-std()-Z & numeric & 0 & 1 & -0.8305 & -6.7e-01 & -0.3911 &
+-0.6555642 & 0.1091076 & ▅▇▃▃▂ & WALKING\_UPSTAIRS & NA \\
+fBodyAccJerk-meanFreq()-X & numeric & 0 & 1 & -0.1586 & 1.2e-01 & 0.2399
+& 0.1033613 & 0.0881542 & ▁▁▃▇▅ & LAYING & NA \\
+fBodyAccJerk-meanFreq()-X & numeric & 0 & 1 & 0.0036 & 1.9e-01 & 0.3055
+& 0.1842830 & 0.0738589 & ▁▂▅▇▃ & SITTING & NA \\
+fBodyAccJerk-meanFreq()-X & numeric & 0 & 1 & -0.0235 & 2.2e-01 & 0.3314
+& 0.2024359 & 0.0908914 & ▂▃▃▇▇ & STANDING & NA \\
+fBodyAccJerk-meanFreq()-X & numeric & 0 & 1 & -0.4368 & -2.6e-01 &
+-0.0727 & -0.2597477 & 0.0825912 & ▂▅▇▅▂ & WALKING & NA \\
+fBodyAccJerk-meanFreq()-X & numeric & 0 & 1 & -0.5213 & -3.1e-01 &
+-0.1439 & -0.3121913 & 0.0955445 & ▂▃▇▇▅ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAccJerk-meanFreq()-X & numeric & 0 & 1 & -0.5760 & -3.7e-01 &
+0.0466 & -0.3327519 & 0.1303934 & ▁▇▅▁▁ & WALKING\_UPSTAIRS & NA \\
+fBodyAccJerk-meanFreq()-Y & numeric & 0 & 1 & -0.2798 & 1.8e-02 & 0.1957
+& 0.0038566 & 0.1108757 & ▂▁▅▇▂ & LAYING & NA \\
+fBodyAccJerk-meanFreq()-Y & numeric & 0 & 1 & -0.2719 & -5.2e-02 &
+0.0885 & -0.0596673 & 0.0865593 & ▂▂▇▇▅ & SITTING & NA \\
+fBodyAccJerk-meanFreq()-Y & numeric & 0 & 1 & -0.3506 & -1.2e-01 &
+0.0740 & -0.1323597 & 0.1009951 & ▂▅▇▇▂ & STANDING & NA \\
+fBodyAccJerk-meanFreq()-Y & numeric & 0 & 1 & -0.5461 & -3.9e-01 &
+-0.0699 & -0.3502802 & 0.1202236 & ▃▇▃▂▂ & WALKING & NA \\
+fBodyAccJerk-meanFreq()-Y & numeric & 0 & 1 & -0.5591 & -4.0e-01 &
+-0.1813 & -0.3835175 & 0.0975847 & ▃▇▇▂▃ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAccJerk-meanFreq()-Y & numeric & 0 & 1 & -0.6020 & -4.6e-01 &
+-0.2705 & -0.4466444 & 0.0909513 & ▆▇▆▇▃ & WALKING\_UPSTAIRS & NA \\
+fBodyAccJerk-meanFreq()-Z & numeric & 0 & 1 & -0.1093 & 6.5e-02 & 0.2301
+& 0.0686771 & 0.0798085 & ▂▂▇▃▂ & LAYING & NA \\
+fBodyAccJerk-meanFreq()-Z & numeric & 0 & 1 & -0.2677 & 1.5e-02 & 0.1175
+& 0.0011168 & 0.0867005 & ▁▁▅▇▇ & SITTING & NA \\
+fBodyAccJerk-meanFreq()-Z & numeric & 0 & 1 & -0.1281 & 8.5e-03 & 0.1486
+& 0.0075047 & 0.0818233 & ▅▅▅▇▃ & STANDING & NA \\
+fBodyAccJerk-meanFreq()-Z & numeric & 0 & 1 & -0.4633 & -2.5e-01 &
+0.0558 & -0.2363382 & 0.1391258 & ▃▃▇▁▂ & WALKING & NA \\
+fBodyAccJerk-meanFreq()-Z & numeric & 0 & 1 & -0.4802 & -2.4e-01 &
+0.0190 & -0.2337030 & 0.1312215 & ▃▇▅▇▃ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAccJerk-meanFreq()-Z & numeric & 0 & 1 & -0.6276 & -4.4e-01 &
+-0.1616 & -0.4328711 & 0.1184184 & ▅▇▅▅▂ & WALKING\_UPSTAIRS & NA \\
+fBodyGyro-mean()-X & numeric & 0 & 1 & -0.9931 & -9.7e-01 & -0.8502 &
+-0.9615471 & 0.0299139 & ▇▃▁▁▁ & LAYING & NA \\
+fBodyGyro-mean()-X & numeric & 0 & 1 & -0.9901 & -9.8e-01 & -0.9397 &
+-0.9762026 & 0.0141481 & ▇▃▂▂▁ & SITTING & NA \\
+fBodyGyro-mean()-X & numeric & 0 & 1 & -0.9864 & -9.5e-01 & -0.8804 &
+-0.9429646 & 0.0314044 & ▇▆▂▃▃ & STANDING & NA \\
+fBodyGyro-mean()-X & numeric & 0 & 1 & -0.6097 & -3.7e-01 & 0.2281 &
+-0.3426805 & 0.1677118 & ▃▇▂▁▁ & WALKING & NA \\
+fBodyGyro-mean()-X & numeric & 0 & 1 & -0.4892 & -2.3e-01 & 0.4750 &
+-0.2111892 & 0.1760647 & ▅▇▂▁▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyGyro-mean()-X & numeric & 0 & 1 & -0.5923 & -4.1e-01 & -0.1151 &
+-0.3858536 & 0.1171864 & ▂▇▅▂▂ & WALKING\_UPSTAIRS & NA \\
+fBodyGyro-mean()-Y & numeric & 0 & 1 & -0.9937 & -9.7e-01 & -0.9346 &
+-0.9668340 & 0.0148877 & ▆▇▇▅▃ & LAYING & NA \\
+fBodyGyro-mean()-Y & numeric & 0 & 1 & -0.9903 & -9.8e-01 & -0.9397 &
+-0.9719460 & 0.0135994 & ▇▂▅▃▁ & SITTING & NA \\
+fBodyGyro-mean()-Y & numeric & 0 & 1 & -0.9940 & -9.7e-01 & -0.9106 &
+-0.9649874 & 0.0195232 & ▇▆▇▂▁ & STANDING & NA \\
+fBodyGyro-mean()-Y & numeric & 0 & 1 & -0.6885 & -4.7e-01 & 0.1956 &
+-0.3915977 & 0.2162249 & ▇▇▃▂▂ & WALKING & NA \\
+fBodyGyro-mean()-Y & numeric & 0 & 1 & -0.7175 & -3.7e-01 & 0.3288 &
+-0.3118020 & 0.2457677 & ▃▇▃▂▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyGyro-mean()-Y & numeric & 0 & 1 & -0.6843 & -5.2e-01 & 0.1187 &
+-0.4529538 & 0.1876732 & ▇▇▃▁▁ & WALKING\_UPSTAIRS & NA \\
+fBodyGyro-mean()-Z & numeric & 0 & 1 & -0.9860 & -9.7e-01 & -0.9093 &
+-0.9629996 & 0.0179769 & ▆▇▂▁▁ & LAYING & NA \\
+fBodyGyro-mean()-Z & numeric & 0 & 1 & -0.9830 & -9.6e-01 & -0.9338 &
+-0.9597157 & 0.0143149 & ▇▆▇▃▅ & SITTING & NA \\
+fBodyGyro-mean()-Z & numeric & 0 & 1 & -0.9860 & -9.6e-01 & -0.9072 &
+-0.9576510 & 0.0232568 & ▇▆▃▂▃ & STANDING & NA \\
+fBodyGyro-mean()-Z & numeric & 0 & 1 & -0.6014 & -3.0e-01 & -0.0105 &
+-0.3047959 & 0.1442252 & ▂▇▇▅▃ & WALKING & NA \\
+fBodyGyro-mean()-Z & numeric & 0 & 1 & -0.4470 & -2.1e-01 & 0.4924 &
+-0.1549172 & 0.2173160 & ▇▇▂▂▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyGyro-mean()-Z & numeric & 0 & 1 & -0.6747 & -3.3e-01 & 0.1967 &
+-0.2862680 & 0.2074134 & ▂▇▆▂▂ & WALKING\_UPSTAIRS & NA \\
+fBodyGyro-std()-X & numeric & 0 & 1 & -0.9947 & -9.8e-01 & -0.8823 &
+-0.9688897 & 0.0253991 & ▇▃▁▁▁ & LAYING & NA \\
+fBodyGyro-std()-X & numeric & 0 & 1 & -0.9926 & -9.9e-01 & -0.9427 &
+-0.9814627 & 0.0111633 & ▇▅▂▁▁ & SITTING & NA \\
+fBodyGyro-std()-X & numeric & 0 & 1 & -0.9875 & -9.5e-01 & -0.8844 &
+-0.9464251 & 0.0312175 & ▇▇▂▃▃ & STANDING & NA \\
+fBodyGyro-std()-X & numeric & 0 & 1 & -0.7349 & -5.3e-01 & -0.1084 &
+-0.5079169 & 0.1379472 & ▅▇▃▂▁ & WALKING & NA \\
+fBodyGyro-std()-X & numeric & 0 & 1 & -0.5149 & -3.9e-01 & 0.1966 &
+-0.3701956 & 0.1309544 & ▇▅▁▁▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyGyro-std()-X & numeric & 0 & 1 & -0.6029 & -5.0e-01 & -0.3381 &
+-0.4913239 & 0.0827158 & ▇▆▃▂▅ & WALKING\_UPSTAIRS & NA \\
+fBodyGyro-std()-Y & numeric & 0 & 1 & -0.9922 & -9.6e-01 & -0.9231 &
+-0.9608839 & 0.0171027 & ▃▅▇▃▂ & LAYING & NA \\
+fBodyGyro-std()-Y & numeric & 0 & 1 & -0.9873 & -9.7e-01 & -0.9106 &
+-0.9634098 & 0.0181248 & ▇▃▅▁▁ & SITTING & NA \\
+fBodyGyro-std()-Y & numeric & 0 & 1 & -0.9944 & -9.6e-01 & -0.9012 &
+-0.9591942 & 0.0222158 & ▇▇▇▂▁ & STANDING & NA \\
+fBodyGyro-std()-Y & numeric & 0 & 1 & -0.6547 & -4.4e-01 & 0.2866 &
+-0.3376617 & 0.2483235 & ▇▆▂▂▁ & WALKING & NA \\
+fBodyGyro-std()-Y & numeric & 0 & 1 & -0.6915 & -3.8e-01 & 0.1261 &
+-0.3598509 & 0.2036155 & ▅▇▇▂▂ & WALKING\_DOWNSTAIRS & NA \\
+fBodyGyro-std()-Y & numeric & 0 & 1 & -0.5982 & -3.8e-01 & 0.6462 &
+-0.2915999 & 0.2997274 & ▇▂▁▁▁ & WALKING\_UPSTAIRS & NA \\
+fBodyGyro-std()-Z & numeric & 0 & 1 & -0.9865 & -9.7e-01 & -0.9155 &
+-0.9657958 & 0.0177021 & ▇▇▂▁▁ & LAYING & NA \\
+fBodyGyro-std()-Z & numeric & 0 & 1 & -0.9828 & -9.6e-01 & -0.9306 &
+-0.9596601 & 0.0143615 & ▇▇▆▅▃ & SITTING & NA \\
+fBodyGyro-std()-Z & numeric & 0 & 1 & -0.9867 & -9.6e-01 & -0.9149 &
+-0.9600589 & 0.0222113 & ▇▅▃▁▂ & STANDING & NA \\
+fBodyGyro-std()-Z & numeric & 0 & 1 & -0.7165 & -4.2e-01 & -0.1430 &
+-0.4045674 & 0.1364344 & ▂▆▇▅▃ & WALKING & NA \\
+fBodyGyro-std()-Z & numeric & 0 & 1 & -0.6217 & -4.1e-01 & 0.1828 &
+-0.3736575 & 0.1712612 & ▅▇▂▁▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyGyro-std()-Z & numeric & 0 & 1 & -0.7299 & -3.1e-01 & 0.5225 &
+-0.2827398 & 0.2577481 & ▃▇▅▁▁ & WALKING\_UPSTAIRS & NA \\
+fBodyGyro-meanFreq()-X & numeric & 0 & 1 & -0.2589 & -3.3e-02 & 0.2492 &
+-0.0212308 & 0.1401990 & ▃▇▅▅▃ & LAYING & NA \\
+fBodyGyro-meanFreq()-X & numeric & 0 & 1 & -0.1281 & 9.5e-02 & 0.2141 &
+0.0633812 & 0.0885299 & ▂▂▃▇▂ & SITTING & NA \\
+fBodyGyro-meanFreq()-X & numeric & 0 & 1 & -0.3935 & -2.3e-01 & -0.1051
+& -0.2259878 & 0.0849232 & ▃▇▆▆▇ & STANDING & NA \\
+fBodyGyro-meanFreq()-X & numeric & 0 & 1 & -0.3337 & -5.9e-02 & 0.1808 &
+-0.0664520 & 0.1074629 & ▁▅▇▆▂ & WALKING & NA \\
+fBodyGyro-meanFreq()-X & numeric & 0 & 1 & -0.3958 & -1.8e-01 & 0.0216 &
+-0.1686808 & 0.0992094 & ▁▅▇▂▃ & WALKING\_DOWNSTAIRS & NA \\
+fBodyGyro-meanFreq()-X & numeric & 0 & 1 & -0.3897 & -2.1e-01 & 0.0112 &
+-0.2083360 & 0.1037944 & ▅▇▇▆▃ & WALKING\_UPSTAIRS & NA \\
+fBodyGyro-meanFreq()-Y & numeric & 0 & 1 & -0.5269 & -1.2e-01 & 0.1049 &
+-0.1354744 & 0.1646133 & ▂▂▅▇▇ & LAYING & NA \\
+fBodyGyro-meanFreq()-Y & numeric & 0 & 1 & -0.3947 & -1.9e-01 & 0.0677 &
+-0.2132914 & 0.1201357 & ▆▂▇▂▁ & SITTING & NA \\
+fBodyGyro-meanFreq()-Y & numeric & 0 & 1 & -0.3745 & -2.0e-01 & 0.1192 &
+-0.2123723 & 0.1081875 & ▇▅▇▁▁ & STANDING & NA \\
+fBodyGyro-meanFreq()-Y & numeric & 0 & 1 & -0.4203 & -7.1e-02 & 0.2731 &
+-0.0955325 & 0.1725979 & ▃▂▇▅▁ & WALKING & NA \\
+fBodyGyro-meanFreq()-Y & numeric & 0 & 1 & -0.4748 & -4.5e-03 & 0.2322 &
+-0.0368116 & 0.1707282 & ▁▂▃▇▃ & WALKING\_DOWNSTAIRS & NA \\
+fBodyGyro-meanFreq()-Y & numeric & 0 & 1 & -0.6668 & -2.8e-01 & -0.0541
+& -0.3109626 & 0.1884877 & ▃▃▃▅▇ & WALKING\_UPSTAIRS & NA \\
+fBodyGyro-meanFreq()-Z & numeric & 0 & 1 & -0.1399 & 9.8e-02 & 0.2892 &
+0.1072158 & 0.1044278 & ▂▅▇▆▆ & LAYING & NA \\
+fBodyGyro-meanFreq()-Z & numeric & 0 & 1 & -0.1732 & -2.5e-02 & 0.2071 &
+-0.0152054 & 0.0911567 & ▃▇▇▂▂ & SITTING & NA \\
+fBodyGyro-meanFreq()-Z & numeric & 0 & 1 & -0.2486 & -8.9e-02 & 0.1006 &
+-0.0932602 & 0.0959959 & ▇▆▇▆▃ & STANDING & NA \\
+fBodyGyro-meanFreq()-Z & numeric & 0 & 1 & -0.3610 & -7.6e-02 & 0.3029 &
+-0.0722790 & 0.1536667 & ▃▇▇▅▁ & WALKING & NA \\
+fBodyGyro-meanFreq()-Z & numeric & 0 & 1 & -0.2528 & -2.7e-02 & 0.3771 &
+-0.0131144 & 0.1450659 & ▃▇▃▂▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyGyro-meanFreq()-Z & numeric & 0 & 1 & -0.5075 & -2.5e-01 & 0.0608 &
+-0.2564425 & 0.1448396 & ▆▇▇▇▂ & WALKING\_UPSTAIRS & NA \\
+fBodyAccMag-mean() & numeric & 0 & 1 & -0.9868 & -9.6e-01 & -0.7745 &
+-0.9462637 & 0.0423151 & ▇▃▁▁▁ & LAYING & NA \\
+fBodyAccMag-mean() & numeric & 0 & 1 & -0.9848 & -9.5e-01 & -0.8977 &
+-0.9506937 & 0.0205886 & ▅▇▆▁▂ & SITTING & NA \\
+fBodyAccMag-mean() & numeric & 0 & 1 & -0.9854 & -9.6e-01 & -0.9046 &
+-0.9550187 & 0.0213333 & ▇▆▆▃▂ & STANDING & NA \\
+fBodyAccMag-mean() & numeric & 0 & 1 & -0.5661 & -3.0e-01 & 0.0322 &
+-0.2698829 & 0.1517425 & ▂▇▇▆▂ & WALKING & NA \\
+fBodyAccMag-mean() & numeric & 0 & 1 & -0.2882 & 1.5e-01 & 0.5866 &
+0.1553360 & 0.1832172 & ▁▃▇▃▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAccMag-mean() & numeric & 0 & 1 & -0.5279 & -2.4e-01 & -0.0760 &
+-0.2525771 & 0.1239749 & ▁▇▅▅▇ & WALKING\_UPSTAIRS & NA \\
+fBodyAccMag-std() & numeric & 0 & 1 & -0.9876 & -9.5e-01 & -0.6514 &
+-0.9334351 & 0.0658421 & ▇▂▁▁▁ & LAYING & NA \\
+fBodyAccMag-std() & numeric & 0 & 1 & -0.9822 & -9.4e-01 & -0.8692 &
+-0.9398320 & 0.0268315 & ▅▇▅▁▂ & SITTING & NA \\
+fBodyAccMag-std() & numeric & 0 & 1 & -0.9823 & -9.5e-01 & -0.8867 &
+-0.9487058 & 0.0241939 & ▇▆▅▃▂ & STANDING & NA \\
+fBodyAccMag-std() & numeric & 0 & 1 & -0.6512 & -4.6e-01 & -0.3248 &
+-0.4772885 & 0.0912945 & ▅▇▇▇▇ & WALKING & NA \\
+fBodyAccMag-std() & numeric & 0 & 1 & -0.3594 & -6.0e-02 & 0.1787 &
+-0.0677679 & 0.1386988 & ▂▅▇▅▅ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAccMag-std() & numeric & 0 & 1 & -0.5361 & -3.9e-01 & -0.1433 &
+-0.3587506 & 0.0958548 & ▂▇▅▂▂ & WALKING\_UPSTAIRS & NA \\
+fBodyAccMag-meanFreq() & numeric & 0 & 1 & -0.2416 & 1.1e-01 & 0.4358 &
+0.1183595 & 0.1712513 & ▃▂▇▇▃ & LAYING & NA \\
+fBodyAccMag-meanFreq() & numeric & 0 & 1 & -0.0806 & 1.2e-01 & 0.3046 &
+0.1114164 & 0.1033499 & ▃▇▆▇▅ & SITTING & NA \\
+fBodyAccMag-meanFreq() & numeric & 0 & 1 & -0.1115 & 4.6e-02 & 0.2846 &
+0.0492203 & 0.0997042 & ▆▇▇▂▂ & STANDING & NA \\
+fBodyAccMag-meanFreq() & numeric & 0 & 1 & -0.0368 & 1.7e-01 & 0.3932 &
+0.1877457 & 0.1011432 & ▂▅▇▅▃ & WALKING & NA \\
+fBodyAccMag-meanFreq() & numeric & 0 & 1 & -0.1722 & 2.6e-02 & 0.2291 &
+0.0315469 & 0.1014655 & ▂▆▇▆▃ & WALKING\_DOWNSTAIRS & NA \\
+fBodyAccMag-meanFreq() & numeric & 0 & 1 & -0.3123 & -1.9e-02 & 0.2937 &
+-0.0415198 & 0.1346686 & ▂▇▇▂▁ & WALKING\_UPSTAIRS & NA \\
+fBodyBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.9940 & -9.8e-01 &
+-0.9333 & -0.9732787 & 0.0135242 & ▆▇▆▂▁ & LAYING & NA \\
+fBodyBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.9914 & -9.8e-01 &
+-0.9483 & -0.9779877 & 0.0114045 & ▇▁▃▁▁ & SITTING & NA \\
+fBodyBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.9925 & -9.7e-01 &
+-0.9400 & -0.9705782 & 0.0153426 & ▇▆▃▆▂ & STANDING & NA \\
+fBodyBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.5646 & -2.2e-01 &
+0.0730 & -0.2087941 & 0.1737443 & ▁▇▃▆▆ & WALKING & NA \\
+fBodyBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.4716 & 1.0e-02 &
+0.5384 & 0.0186013 & 0.2079087 & ▁▅▇▅▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyBodyAccJerkMag-mean() & numeric & 0 & 1 & -0.6548 & -3.4e-01 &
+-0.0458 & -0.3416676 & 0.1425888 & ▂▇▆▇▂ & WALKING\_UPSTAIRS & NA \\
+fBodyBodyAccJerkMag-std() & numeric & 0 & 1 & -0.9944 & -9.8e-01 &
+-0.9218 & -0.9720467 & 0.0149045 & ▅▇▅▁▁ & LAYING & NA \\
+fBodyBodyAccJerkMag-std() & numeric & 0 & 1 & -0.9910 & -9.8e-01 &
+-0.9473 & -0.9773740 & 0.0116619 & ▇▂▆▁▁ & SITTING & NA \\
+fBodyBodyAccJerkMag-std() & numeric & 0 & 1 & -0.9925 & -9.7e-01 &
+-0.9360 & -0.9704452 & 0.0155503 & ▇▇▅▅▂ & STANDING & NA \\
+fBodyBodyAccJerkMag-std() & numeric & 0 & 1 & -0.5190 & -2.4e-01 &
+0.1583 & -0.2163735 & 0.1802215 & ▆▇▃▇▂ & WALKING & NA \\
+fBodyBodyAccJerkMag-std() & numeric & 0 & 1 & -0.5022 & -7.5e-02 &
+0.3163 & -0.0325334 & 0.1854591 & ▁▁▇▅▃ & WALKING\_DOWNSTAIRS & NA \\
+fBodyBodyAccJerkMag-std() & numeric & 0 & 1 & -0.7034 & -4.5e-01 &
+-0.1513 & -0.4261924 & 0.1195101 & ▁▆▇▂▂ & WALKING\_UPSTAIRS & NA \\
+fBodyBodyAccJerkMag-meanFreq() & numeric & 0 & 1 & 0.1571 & 2.7e-01 &
+0.4881 & 0.2774608 & 0.0835552 & ▇▅▆▂▁ & LAYING & NA \\
+fBodyBodyAccJerkMag-meanFreq() & numeric & 0 & 1 & 0.0975 & 2.8e-01 &
+0.4591 & 0.2783232 & 0.0771253 & ▁▆▆▇▁ & SITTING & NA \\
+fBodyBodyAccJerkMag-meanFreq() & numeric & 0 & 1 & -0.0061 & 2.8e-01 &
+0.4268 & 0.2490027 & 0.1048352 & ▁▂▅▇▃ & STANDING & NA \\
+fBodyBodyAccJerkMag-meanFreq() & numeric & 0 & 1 & -0.1172 & 9.3e-02 &
+0.2075 & 0.0765791 & 0.0803951 & ▁▂▃▇▃ & WALKING & NA \\
+fBodyBodyAccJerkMag-meanFreq() & numeric & 0 & 1 & -0.1252 & 2.3e-02 &
+0.1814 & 0.0247422 & 0.0794752 & ▃▂▇▂▂ & WALKING\_DOWNSTAIRS & NA \\
+fBodyBodyAccJerkMag-meanFreq() & numeric & 0 & 1 & -0.0890 & 5.3e-02 &
+0.2969 & 0.0691673 & 0.0948057 & ▆▇▆▅▂ & WALKING\_UPSTAIRS & NA \\
+fBodyBodyGyroMag-mean() & numeric & 0 & 1 & -0.9843 & -9.6e-01 & -0.8622
+& -0.9533430 & 0.0253132 & ▇▃▂▁▁ & LAYING & NA \\
+fBodyBodyGyroMag-mean() & numeric & 0 & 1 & -0.9865 & -9.7e-01 & -0.9297
+& -0.9632680 & 0.0156595 & ▇▇▆▅▃ & SITTING & NA \\
+fBodyBodyGyroMag-mean() & numeric & 0 & 1 & -0.9846 & -9.6e-01 & -0.8794
+& -0.9470698 & 0.0286292 & ▇▅▃▅▁ & STANDING & NA \\
+fBodyBodyGyroMag-mean() & numeric & 0 & 1 & -0.6692 & -4.6e-01 & 0.1851
+& -0.4113631 & 0.1923825 & ▇▆▃▁▁ & WALKING & NA \\
+fBodyBodyGyroMag-mean() & numeric & 0 & 1 & -0.6047 & -3.4e-01 & 0.2040
+& -0.2838438 & 0.1858631 & ▂▇▂▂▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyBodyGyroMag-mean() & numeric & 0 & 1 & -0.6540 & -4.8e-01 & 0.0489
+& -0.4437068 & 0.1535025 & ▇▅▃▁▁ & WALKING\_UPSTAIRS & NA \\
+fBodyBodyGyroMag-std() & numeric & 0 & 1 & -0.9815 & -9.5e-01 & -0.8243
+& -0.9405652 & 0.0338694 & ▇▆▁▁▁ & LAYING & NA \\
+fBodyBodyGyroMag-std() & numeric & 0 & 1 & -0.9813 & -9.5e-01 & -0.8958
+& -0.9501493 & 0.0205283 & ▆▇▆▂▂ & SITTING & NA \\
+fBodyBodyGyroMag-std() & numeric & 0 & 1 & -0.9785 & -9.4e-01 & -0.8491
+& -0.9296488 & 0.0386312 & ▇▃▃▃▂ & STANDING & NA \\
+fBodyBodyGyroMag-std() & numeric & 0 & 1 & -0.7211 & -5.1e-01 & -0.0615
+& -0.4755814 & 0.1652296 & ▇▇▃▂▂ & WALKING & NA \\
+fBodyBodyGyroMag-std() & numeric & 0 & 1 & -0.5338 & -3.9e-01 & 0.0320 &
+-0.3583560 & 0.1170750 & ▆▇▃▁▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyBodyGyroMag-std() & numeric & 0 & 1 & -0.5696 & -4.4e-01 & 0.2367 &
+-0.3796335 & 0.1818573 & ▇▃▂▁▁ & WALKING\_UPSTAIRS & NA \\
+fBodyBodyGyroMag-meanFreq() & numeric & 0 & 1 & -0.3348 & -1.0e-02 &
+0.2338 & -0.0307119 & 0.1540322 & ▂▆▅▇▃ & LAYING & NA \\
+fBodyBodyGyroMag-meanFreq() & numeric & 0 & 1 & -0.2001 & -9.7e-02 &
+0.1255 & -0.0773504 & 0.0889946 & ▇▃▅▅▁ & SITTING & NA \\
+fBodyBodyGyroMag-meanFreq() & numeric & 0 & 1 & -0.3828 & -1.7e-01 &
+-0.0286 & -0.1817693 & 0.0921014 & ▂▅▆▇▅ & STANDING & NA \\
+fBodyBodyGyroMag-meanFreq() & numeric & 0 & 1 & -0.1515 & 1.8e-01 &
+0.4095 & 0.1643214 & 0.1484148 & ▅▂▇▅▆ & WALKING & NA \\
+fBodyBodyGyroMag-meanFreq() & numeric & 0 & 1 & -0.1759 & 7.9e-02 &
+0.4027 & 0.0706223 & 0.1558279 & ▅▅▇▃▂ & WALKING\_DOWNSTAIRS & NA \\
+fBodyBodyGyroMag-meanFreq() & numeric & 0 & 1 & -0.4566 & -1.4e-01 &
+0.0792 & -0.1613056 & 0.1479535 & ▃▅▆▇▇ & WALKING\_UPSTAIRS & NA \\
+fBodyBodyGyroJerkMag-mean() & numeric & 0 & 1 & -0.9976 & -9.8e-01 &
+-0.9424 & -0.9771449 & 0.0127362 & ▃▇▃▂▁ & LAYING & NA \\
+fBodyBodyGyroJerkMag-mean() & numeric & 0 & 1 & -0.9952 & -9.9e-01 &
+-0.9520 & -0.9848527 & 0.0096981 & ▇▂▂▁▁ & SITTING & NA \\
+fBodyBodyGyroJerkMag-mean() & numeric & 0 & 1 & -0.9948 & -9.8e-01 &
+-0.9296 & -0.9745118 & 0.0151072 & ▇▅▅▁▁ & STANDING & NA \\
+fBodyBodyGyroJerkMag-mean() & numeric & 0 & 1 & -0.7703 & -5.8e-01 &
+0.1466 & -0.5167797 & 0.2018231 & ▇▆▂▁▁ & WALKING & NA \\
+fBodyBodyGyroJerkMag-mean() & numeric & 0 & 1 & -0.7442 & -4.7e-01 &
+0.0747 & -0.4326376 & 0.2003833 & ▆▇▅▂▂ & WALKING\_DOWNSTAIRS & NA \\
+fBodyBodyGyroJerkMag-mean() & numeric & 0 & 1 & -0.8262 & -6.7e-01 &
+-0.4504 & -0.6523849 & 0.1118729 & ▃▆▇▂▅ & WALKING\_UPSTAIRS & NA \\
+fBodyBodyGyroJerkMag-std() & numeric & 0 & 1 & -0.9976 & -9.8e-01 &
+-0.9327 & -0.9757317 & 0.0138287 & ▃▇▃▁▁ & LAYING & NA \\
+fBodyBodyGyroJerkMag-std() & numeric & 0 & 1 & -0.9950 & -9.9e-01 &
+-0.9512 & -0.9839504 & 0.0100146 & ▇▃▃▁▁ & SITTING & NA \\
+fBodyBodyGyroJerkMag-std() & numeric & 0 & 1 & -0.9947 & -9.8e-01 &
+-0.9272 & -0.9730231 & 0.0159454 & ▇▅▆▂▁ & STANDING & NA \\
+fBodyBodyGyroJerkMag-std() & numeric & 0 & 1 & -0.7736 & -5.7e-01 &
+0.2878 & -0.5146696 & 0.2244087 & ▇▅▁▁▁ & WALKING & NA \\
+fBodyBodyGyroJerkMag-std() & numeric & 0 & 1 & -0.7634 & -4.9e-01 &
+-0.0399 & -0.4831486 & 0.1855048 & ▇▇▅▂▂ & WALKING\_DOWNSTAIRS & NA \\
+fBodyBodyGyroJerkMag-std() & numeric & 0 & 1 & -0.8609 & -7.1e-01 &
+-0.4559 & -0.6985790 & 0.1008342 & ▆▇▅▃▂ & WALKING\_UPSTAIRS & NA \\
+fBodyBodyGyroJerkMag-meanFreq() & numeric & 0 & 1 & -0.0162 & 1.7e-01 &
+0.4263 & 0.1642092 & 0.1071427 & ▅▆▇▃▂ & LAYING & NA \\
+fBodyBodyGyroJerkMag-meanFreq() & numeric & 0 & 1 & 0.0025 & 1.8e-01 &
+0.3587 & 0.1736766 & 0.0971957 & ▃▇▇▅▅ & SITTING & NA \\
+fBodyBodyGyroJerkMag-meanFreq() & numeric & 0 & 1 & -0.1829 & 8.8e-02 &
+0.3345 & 0.0830319 & 0.1278083 & ▃▃▇▇▂ & STANDING & NA \\
+fBodyBodyGyroJerkMag-meanFreq() & numeric & 0 & 1 & -0.0761 & 1.2e-01 &
+0.2946 & 0.1316152 & 0.1018710 & ▂▇▇▇▇ & WALKING & NA \\
+fBodyBodyGyroJerkMag-meanFreq() & numeric & 0 & 1 & -0.1013 & 8.4e-02 &
+0.3397 & 0.1015427 & 0.0971844 & ▂▇▇▆▁ & WALKING\_DOWNSTAIRS & NA \\
+fBodyBodyGyroJerkMag-meanFreq() & numeric & 0 & 1 & -0.0714 & 9.8e-02 &
+0.2635 & 0.1014592 & 0.0910851 & ▂▆▇▅▅ & WALKING\_UPSTAIRS & NA \\
+\bottomrule
+\end{longtable}
+
+\end{document}
