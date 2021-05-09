@@ -1,0 +1,73 @@
+---
+title: "Getting and Cleaning Data Course Project"
+author: "Franco Corona"
+date: "`r Sys.Date()`"
+output:
+  html_vignette:
+    fig_width: 7
+    fig_height: 6
+vignette: >
+  %\VignetteIndexEntry{Tutorial}
+  \%VignetteKeyword{manual}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+Reference: https://rubenarslan.github.io/codebook/articles/codebook.html
+---
+Running run_analysis.R file:
+```{r echo=FALSE}
+suppressWarnings(source("./run_analysis.R"))
+```
+
+```{r message = FALSE, echo=FALSE}
+knit_by_pkgdown <- !is.null(knitr::opts_chunk$get("fig.retina"))
+knitr::opts_chunk$set(warning = FALSE, message = TRUE, error = FALSE)
+ggplot2::theme_set(ggplot2::theme_bw())
+
+library(codebook)
+data("bfi", package = 'codebook')
+if (!knit_by_pkgdown) {
+  library(dplyr)
+        bfi<-mean_and_std_for_measurement_sbj_groupped
+}
+```
+
+The data was processed by run_analysis.R
+
+```{r echo=FALSE}
+metadata(bfi)$name <- "Human Activity Recognition Using Smartphones Dataset"
+metadata(bfi)$description <- "a small analysis by Franco Corona"
+metadata(bfi)$identifier <- "MX-001"
+metadata(bfi)$datePublished <- "2021-05-09"
+metadata(bfi)$creator <- list(
+      "@type" = "Person",
+      givenName = "Franco", familyName = "Corona",
+      email = "exibios@gmail.com", 
+      affiliation = list("@type" = "Coursera",
+        name = "Data Science Specialization by Johns Hopkins University- Mexico city"))
+metadata(bfi)$citation <- "Franco Corona, Getting and Cleaning Data Course Project"
+metadata(bfi)$url <- "https://github.com/exibios/ds_jh_m3_w4"
+metadata(bfi)$temporalCoverage <- "2021" 
+metadata(bfi)$spatialCoverage <- "Mexico city, México" 
+```
+
+```{r echo=FALSE}
+knitr::opts_chunk$set(warning = TRUE, message = TRUE, echo = FALSE)
+
+```
+
+
+
+```{r cb}
+codebook(bfi, metadata_table = knit_by_pkgdown, metadata_json = TRUE)
+```
+
+
+`r ifelse(knit_by_pkgdown, '', '### Codebook table')`
+
+```{r}
+if (!knit_by_pkgdown) {
+  codebook:::escaped_table(codebook_table(bfi))
+}
+```
+
